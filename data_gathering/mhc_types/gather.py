@@ -18,7 +18,11 @@ for i, barcode in enumerate(barcodes[:5]):
 
     for gene in genes:
         print directory + 'sampleID_{0}.est.txt'.format(gene)
-        patient_dictionary[gene] = [':'.join(x.split(':')[:2]) for x in open(directory + 'sampleID_{0}.est.txt'.format(gene)).readlines()[2].split('\t')[:2]]
+
+        try:
+            patient_dictionary[gene] = [':'.join(x.split(':')[:2]) for x in open(directory + 'sampleID_{0}.est.txt'.format(gene)).readlines()[2].split('\t')[:2]]
+        except:
+            patient_dictionary[gene] = ['-', '-']
 
     all_patient_dictionary[barcode] = patient_dictionary
 
