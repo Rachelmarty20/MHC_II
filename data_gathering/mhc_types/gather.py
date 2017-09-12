@@ -1,8 +1,7 @@
+import os.path
 import pandas as pd
 import cPickle as pickle
 import samples
-import os
-
 
 # genes to collect
 genes = ['A', 'B', 'C', 'DPA1', 'DPB1', 'DQA1', 'DQB1', 'DRA', 'DRB1', 'DRB3', 'DRB4']
@@ -16,7 +15,8 @@ for i, barcode in enumerate(barcodes[:2000]):
     patient_dictionary = {}
     directory = '/nrnb/users/ramarty/TCGA/exomes/{0}/hlaHD/sampleID/result/'.format(barcode)
 
-    if os.direxists(directory):
+    try:
+        open(directory + 'sampleID_A.est.txt')
 
         for gene in genes:
 
@@ -26,6 +26,9 @@ for i, barcode in enumerate(barcodes[:2000]):
                 patient_dictionary[gene] = ['-', '-']
 
         all_patient_dictionary[barcode] = patient_dictionary
+
+    except:
+        print 'skip' + barcode
 
 df = pd.DataFrame(all_patient_dictionary).transpose()
 
