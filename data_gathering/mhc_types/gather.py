@@ -1,4 +1,3 @@
-import os.path
 import pandas as pd
 import cPickle as pickle
 import samples
@@ -33,4 +32,4 @@ for i, barcode in enumerate(barcodes[:2000]):
 df = pd.DataFrame(all_patient_dictionary).transpose()
 
 df.to_csv('/cellar/users/ramarty/Data/hla_ii/hla_types/hla_types.tcga.csv')
-pickle.dump(df, open('/cellar/users/ramarty/Data/hla_ii/hla_types/hla_types.tcga.p', 'wb'))
+pickle.dump(all_patient_dictionary, open('/cellar/users/ramarty/Data/hla_ii/hla_types/hla_types.tcga.p', 'wb'))
