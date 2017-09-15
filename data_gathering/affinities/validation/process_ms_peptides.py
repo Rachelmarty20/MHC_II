@@ -20,6 +20,7 @@ def main():
         ms = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/raw/{0}'.format(file))
         ms = ms[['Peptide sequence', 'Uniprot AC']]
         ms.columns = ['measured_peptide', 'uniprot_AC']
+        ms.measured_peptide = ms.measured_peptide.apply(combine_separated_peptide)
         ms = pd.merge(ms, merged, on='uniprot_AC', how='left')
 
         def get_combined(x):
@@ -88,6 +89,13 @@ def gather_protein_sequences():
 
 def get_length(x):
     return len(x)
+
+
+def combine_separated_peptide(x):
+    if len(x.split(' ')) > 1:
+        return ''.join(x.split(' '))
+    else:
+        return x
 
 
 def sequence_for_affinity(x):
