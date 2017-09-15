@@ -20,16 +20,7 @@ def main():
         ms = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/raw/{0}'.format(file))
         ms = ms[['Peptide sequence', 'Uniprot AC']]
         ms.columns = ['measured_peptide', 'uniprot_AC']
-
         ms = pd.merge(ms, merged, on='uniprot_AC', how='left')
-        ms['combined'] = ms[['gene', 'measured_peptide', 'sequence']].apply(get_combined, axis=1)
-        processed = ms[ms.combined != 'fail']
-        mutations = list(set(processed.combined))
-
-        # output residues
-        with open('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/residues/{0}.txt'.format(donor), 'w') as outfile:
-            for mutation in mutations:
-                outfile.write('{0}\n'.format(mutation))
 
         def get_combined(x):
             try:
@@ -40,6 +31,15 @@ def main():
                 return '{0}_{1}{2}{3}'.format(gene, aa, residue, aa)
             except:
                 return 'fail'
+        ms['combined'] = ms[['gene', 'measured_peptide', 'sequence']].apply(get_combined, axis=1)
+        processed = ms[ms.combined != 'fail']
+        mutations = list(set(processed.combined))
+
+        # output residues
+        with open('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/residues/{0}.txt'.format(donor), 'w') as outfile:
+            for mutation in mutations:
+                outfile.write('{0}\n'.format(mutation))
+
         processed['sequence_for_affinity'] = processed.loc[:, ['combined', 'sequence']].apply(sequence_for_affinity, axis=1)
 
         with open('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/fasta_files/{0}.fa'.format(donor), 'w') as outfile:
