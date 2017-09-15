@@ -28,7 +28,10 @@ def main():
                 peptide = x[1]
                 aa = peptide[len(peptide)/2]
                 residue = list(ms[ms.measured_peptide == peptide].sequence)[0].find(peptide) + 1 + (len(peptide) / 2)
-                return '{0}_{1}{2}{3}'.format(gene, aa, residue, aa)
+                if residue != -1:
+                    return '{0}_{1}{2}{3}'.format(gene, aa, residue, aa)
+                else:
+                    return 'fail'
             except:
                 return 'fail'
         ms['combined'] = ms[['gene', 'measured_peptide', 'sequence']].apply(get_combined, axis=1)
