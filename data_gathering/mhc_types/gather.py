@@ -20,9 +20,11 @@ for i, barcode in enumerate(barcodes[:2000]):
         for gene in genes:
 
             try:
+                # this needs to be fixed
                 alleles = [':'.join(x.split(':')[:2]) for x in open(directory + 'sampleID_{0}.est.txt'.format(gene)).readlines()[2].split('\t')[:2]]
                 patient_dictionary[gene + '_allele1'] = alleles[0]
                 patient_dictionary[gene + '_allele2'] = alleles[1]
+
             except:
                 patient_dictionary[gene + '_allele1'] = '-'
                 patient_dictionary[gene + '_allele2'] = '-'
