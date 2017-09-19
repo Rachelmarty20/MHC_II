@@ -56,24 +56,24 @@ def main():
                 outfile.write('>{0}\n'.format(combined))
                 outfile.write('{0}\n'.format(sequence))
 
-        # random
-        merged = gather_protein_sequences_all()
+    # random
+    merged = gather_protein_sequences_all()
 
-        for donor in ['DonorA', 'DonorB', 'DonorC', 'DonorD', 'DonorE', 'DonorF', 'DonorG']:
+    for donor in ['DonorA', 'DonorB', 'DonorC', 'DonorD', 'DonorE', 'DonorF', 'DonorG']:
 
-            print donor
+        print donor
 
-            mutations = [x.strip() for x in open('/cellar/users/ramarty/Data/hla_ii/presentation/residues/random.txt').readlines()][:1000]
-            with open('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/residues/{0}.random.txt'.format(donor), 'w') as outfile:
-                for mutation in mutations:
-                    outfile.write('{0}\n'.format(mutation))
+        mutations = [x.strip() for x in open('/cellar/users/ramarty/Data/hla_ii/presentation/residues/random.txt').readlines()][:1000]
+        with open('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/residues/{0}.random.txt'.format(donor), 'w') as outfile:
+            for mutation in mutations:
+                outfile.write('{0}\n'.format(mutation))
 
-            peptides, mutations_used = generate_peptides(mutations, merged)
+        peptides, mutations_used = generate_peptides(mutations, merged)
 
-            with open('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/fasta_files/{0}.random.fa'.format(donor), 'w') as outfile:
-                for mutation, sequence in zip(mutations_used, peptides):
-                    outfile.write('>{0}\n'.format(mutation))
-                    outfile.write('{0}\n'.format(sequence))
+        with open('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/fasta_files/{0}.random.fa'.format(donor), 'w') as outfile:
+            for mutation, sequence in zip(mutations_used, peptides):
+                outfile.write('>{0}\n'.format(mutation))
+                outfile.write('{0}\n'.format(sequence))
 
 
 
