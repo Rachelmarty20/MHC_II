@@ -15,6 +15,8 @@ def main():
 
     for donor in ['DonorA', 'DonorB', 'DonorC', 'DonorD', 'DonorE', 'DonorF', 'DonorG']:
 
+        print donor
+
         file = [x for x in file_names if donor in x][0]
 
         ms = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/raw/{0}'.format(file))
@@ -54,6 +56,27 @@ def main():
                 outfile.write('>{0}\n'.format(combined))
                 outfile.write('{0}\n'.format(sequence))
 
+        # random
+        merged = gather_protein_sequences_all()
+
+        for donor in ['DonorA', 'DonorB', 'DonorC', 'DonorD', 'DonorE', 'DonorF', 'DonorG']:
+
+            print donor
+
+            mutations = [x.strip() for x in open('/cellar/users/ramarty/Data/hla_ii/presentation/residues/random.txt').readlines()][:1000]
+            with open('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/residues/{0}.random.txt'.format(donor), 'w') as outfile:
+                for mutation in mutations:
+                    outfile.write('{0}\n'.format(mutation))
+
+            peptides, mutations_used = generate_peptides(mutations, merged)
+
+            with open('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/fasta_files/{0}.random.fa'.format(donor), 'w') as outfile:
+                for mutation, sequence in zip(mutations_used, peptides):
+                    outfile.write('>{0}\n'.format(mutation))
+                    outfile.write('{0}\n'.format(sequence))
+
+
+
 
 def gather_protein_sequences():
     # Ensemble (with sequences)
@@ -88,6 +111,22 @@ def gather_protein_sequences():
     return merged
 
 
+def gather_protein_sequences_all():
+    # Ensemble (with sequences)
+    proteins, genes, sequences = [], [], []
+    fasta_sequences = SeqIO.parse(open("/cellar/users/ramarty/Data/hla_ii/references/Homo_sapiens.GRCh38.pep.all.fa"),'fasta')
+    for fasta in fasta_sequences:
+        gene, protein, sequence = fasta.description.split('gene_symbol:')[1].split(' ')[0], fasta.id, fasta.seq.tostring()
+        proteins.append(protein)
+        genes.append(gene)
+        sequences.append(sequence)
+    ensemble = pd.DataFrame({'protein': proteins, 'gene': genes, 'sequence': sequences})
+    ensemble['protein'] = ensemble['protein'].map(lambda x: str(x)[:-2])
+    # Add missing gene
+    ensemble.loc[len(ensemble)+1] = ['CRIPAK', '_', 'MHEPSLCANVECPPAHTCPCGVPACSCAHVECPPAHTCRCGVPACSHMPMWSARLLTRAHVECPPAHTRVHVECPPAHVPMWSAHLLTCADVECHLLTHVPMWSARLLTCPCGVPACSHVPMRSARLLTRAHAECPPAHTCPCGVPACSHVPMRSARLLTRADVECPPAHTCPCGVPACSHVPTWSARLITRAHVECSPAHTCRCGVPACSHVPMWSVRLLTRADAECPPAHTCRCGVPACSHVPMWSARLLTCRCGVPACSHVPMWSARLLTCRCGVPACSHVPMWSARLLTRAHVECPPAHTCRRGVPACSRAHMECPPAHTCHCGVPACSHTCRCGVPACSHVPMWSARLLTRAHVECPPAHTRAHVECPPAHTCPCGVPACSHTCPCGVPACSHKALAWWFCRFPVLPAESDAVTVHSTHGGFLIRFYVKDPFYISLHLEIT']
+    return ensemble
+
+
 def get_length(x):
     return len(x)
 
@@ -116,6 +155,31 @@ def sequence_for_affinity(x):
     else:
         return 'fail'
 
+
+def generate_peptides(mutations, merged):
+    peptides, mutations_used = [], []
+    for mutation in mutations:
+        gene = mutation.split('_')[0]
+        sequences = list(merged[merged.gene == gene].sequence)
+        for i, sequence in enumerate(sequences):
+            residue = mutation.split('_')[1]
+            position = int(residue[1:len(residue)-1]) - 1
+            old_aa = residue[0]
+            new_aa = residue[-1:]
+            if len(sequence) > position and sequence[position] == old_aa:
+                mutated_sequence = sequence[:position] + new_aa + sequence[position+1:]
+                if position > 13:
+                    seq_for_affinity = mutated_sequence[position-14:position+15]
+                else:
+                    seq_for_affinity = mutated_sequence[:position+15]
+                peptides.append(seq_for_affinity)
+                mutations_used.append(mutation)
+                break
+            else:
+                if i+1 == len(sequences):
+                    #print mutation
+                    continue
+    return peptides, mutations_used
 
 ###########################################  Main Method  #####################################
 
