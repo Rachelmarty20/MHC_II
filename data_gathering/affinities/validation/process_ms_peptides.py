@@ -3,7 +3,7 @@ from Bio import SeqIO
 import sys
 
 
-def main():
+def main(peptide_length):
 
     # get proteome reference
     merged = gather_protein_sequences()
@@ -47,9 +47,10 @@ def main():
             for mutation in mutations:
                 outfile.write('{0}\n'.format(mutation))
 
-        processed['sequence_for_affinity'] = processed.loc[:, ['combined', 'sequence']].apply(sequence_for_affinity, axis=1)
+        processed['peptide_length'] = peptide_length
+        processed['sequence_for_affinity'] = processed.loc[:, ['combined', 'sequence', 'peptide_length']].apply(sequence_for_affinity, axis=1)
 
-        with open('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/fasta_files/{0}.fa'.format(donor), 'w') as outfile:
+        with open('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/fasta_files/{0}.{1}.fa'.format(donor, peptide_length), 'w') as outfile:
             for row in processed.iterrows():
                 combined = row[1]['combined']
                 sequence = row[1]['sequence_for_affinity']
@@ -68,9 +69,9 @@ def main():
             for mutation in mutations:
                 outfile.write('{0}\n'.format(mutation))
 
-        peptides, mutations_used = generate_peptides(mutations, merged)
+        peptides, mutations_used = generate_peptides(mutations, merged, peptide_length)
 
-        with open('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/fasta_files/{0}.random.fa'.format(donor), 'w') as outfile:
+        with open('/cellar/users/ramarty/Data/hla_ii/validation/ciudad/fasta_files/{0}.random.{1}.fa'.format(donor, peptide_length), 'w') as outfile:
             for mutation, sequence in zip(mutations_used, peptides):
                 outfile.write('>{0}\n'.format(mutation))
                 outfile.write('{0}\n'.format(sequence))
@@ -141,22 +142,23 @@ def combine_separated_peptide(x):
 def sequence_for_affinity(x):
     combined = x[0]
     sequence = x[1]
+    peptide_length = x[2]
     residue = combined.split('_')[1]
     position = int(residue[1:len(residue)-1]) - 1
     old_aa = residue[0]
     new_aa = residue[-1:]
     if len(sequence) >= position and sequence[position] == old_aa:
         mutated_sequence = sequence[:position] + new_aa + sequence[position+1:]
-        if position > 13:
-            seq_for_affinity = mutated_sequence[position-14:position+15]
+        if position > (peptide_length-2):
+            seq_for_affinity = mutated_sequence[position-(peptide_length-1):position+(peptide_length)]
         else:
-            seq_for_affinity = mutated_sequence[:position+15]
+            seq_for_affinity = mutated_sequence[:position+peptide_length]
         return seq_for_affinity
     else:
         return 'fail'
 
 
-def generate_peptides(mutations, merged):
+def generate_peptides(mutations, merged, peptide_length):
     peptides, mutations_used = [], []
     for mutation in mutations:
         gene = mutation.split('_')[0]
@@ -168,10 +170,10 @@ def generate_peptides(mutations, merged):
             new_aa = residue[-1:]
             if len(sequence) > position and sequence[position] == old_aa:
                 mutated_sequence = sequence[:position] + new_aa + sequence[position+1:]
-                if position > 13:
-                    seq_for_affinity = mutated_sequence[position-14:position+15]
+                if position > (peptide_length - 2):
+                    seq_for_affinity = mutated_sequence[position-(peptide_length-1):position+(peptide_length)]
                 else:
-                    seq_for_affinity = mutated_sequence[:position+15]
+                    seq_for_affinity = mutated_sequence[:position+(peptide_length)]
                 peptides.append(seq_for_affinity)
                 mutations_used.append(mutation)
                 break
@@ -186,5 +188,5 @@ def generate_peptides(mutations, merged):
 if __name__ == "__main__":
     if len(sys.argv) != 1:
         sys.exit()
-    main()
+    main(int(sys.argv[1]))
     sys.exit()
