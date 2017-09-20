@@ -16,7 +16,6 @@ for i, barcode in enumerate(barcodes[:2000]):
 
         patient_dictionary = {}
         for line in lines:
-            print line[0]
             if line[0] in ['A', 'B', 'C', 'DRB1']:
                 if line[2].strip() == '-':
                     x = line[1]
