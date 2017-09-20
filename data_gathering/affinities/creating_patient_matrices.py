@@ -5,7 +5,7 @@ import sys
 
 def main(category):
 
-    patient_dictionary = pickle.load(open('/cellar/users/ramarty/Data/hla_ii/hla_types/DRB1.tcga.p'))
+    patient_dictionary = pickle.load(open('/cellar/users/ramarty/Data/hla_ii/hla_types/TCGA.HLA_classII.p'))
 
     df = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/allele_matrices/{0}.csv'.format(category), index_col=0)
     patients_used = []
