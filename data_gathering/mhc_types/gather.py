@@ -38,3 +38,7 @@ df = pd.DataFrame(all_patient_dictionary).transpose()
 
 df.to_csv('/cellar/users/ramarty/Data/hla_ii/hla_types/hla_types.tcga.csv')
 pickle.dump(all_patient_dictionary, open('/cellar/users/ramarty/Data/hla_ii/hla_types/hla_types.tcga.p', 'wb'))
+
+
+# HLA-DPA10103-DPB10101
+# DRB1_1302
