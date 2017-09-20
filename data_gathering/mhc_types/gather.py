@@ -16,7 +16,7 @@ for i, barcode in enumerate(barcodes[:2000]):
 
         patient_dictionary = {}
         for line in lines:
-            if line[0] in ['A', 'B', 'C', 'DRB1']:
+            if line[0] in ['DRB1']:
                 if line[2].strip() == '-':
                     x = line[1]
                     alleles = [line[0]+'_'+x.split('*')[1].split(':')[0]+x.split('*')[1].split(':')[1]]*2
@@ -25,7 +25,7 @@ for i, barcode in enumerate(barcodes[:2000]):
                 patient_dictionary[line[0]+'_allele1'] = alleles[0]
                 patient_dictionary[line[0]+'_allele2'] = alleles[1]
             # combinations
-            else:
+            elif line[0] in ['DQA1', 'DQB1', 'DPA1', 'DPB1']:
                 if line[2].strip() == '-':
                     x = line[1]
                     alleles = [line[0]+x.split('*')[1].split(':')[0]+x.split('*')[1].split(':')[1]]*2
@@ -34,6 +34,8 @@ for i, barcode in enumerate(barcodes[:2000]):
                 patient_dictionary[line[0]+'_allele1'] = alleles[0]
                 patient_dictionary[line[0]+'_allele2'] = alleles[1]
                 all_patient_dictionary[barcode] = patient_dictionary
+            else:
+                None
 
     except:
         print 'skip' + barcode
