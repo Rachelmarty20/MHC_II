@@ -61,14 +61,14 @@ for patient in patients:
         DB = list(patient_types_df.ix[patient][['DPB1_allele1', 'DPB1_allele2']])
         for a in DA:
             for b in DB:
-                alleles.append('HLA-{0}_{1}'.format(a.strip(), b.strip()))
+                alleles.append('HLA-{0}-{1}'.format(a.strip(), b.strip()))
 
         # DQ
         DA = list(patient_types_df.ix[patient][['DQA1_allele1', 'DQA1_allele2']])
         DB = list(patient_types_df.ix[patient][['DQB1_allele1', 'DQB1_allele2']])
         for a in DA:
             for b in DB:
-                alleles.append('HLA-{0}_{1}'.format(a.strip(), b.strip()))
+                alleles.append('HLA-{0}-{1}'.format(a.strip(), b.strip()))
         dictionary[patient] = alleles
     except:
         # weeds out the patients with the failed typing
