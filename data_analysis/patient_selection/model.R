@@ -14,7 +14,7 @@ patient <- as.character(mut[,1])
 mut <- as.matrix(mut[,-1])
 aff <- as.matrix(aff[,-1])
 rownames(mut) <- rownames(aff) <- patient
-
+print('Data formatted.')
 
 ######################################################################################
 # ANALYSIS 1. ALL CANCER TYPES COMBINED
@@ -32,6 +32,7 @@ summary(lme1)
 lme2= glmer(y[sel] ~ log(x[sel]) + (1|pat[sel]), family='binomial')
 summary(lme2)
 
+print('Models created.')
 
 pdf('/cellar/users/ramarty/Data/hla_ii/generated_figures/globalassoc_gam_harm.pdf')
 thre <- c(0,0.5,1,1.5,2,2.5,3,4,5,Inf)
@@ -63,6 +64,7 @@ hist(x[y==1],main='',xlim=c(0,10),ylim=c(0,1),prob=T,breaks=seq(0,100,by=.5),bor
 legend('topright',c('No mutation','Mutation'),lty=1,col=1:2,cex=1.3)
 dev.off()
 
+print('Pan completed created.')
 
 
 
@@ -97,6 +99,8 @@ for (i in 1:length(tissuetypes)) {
 }
 
 save(mysummary0,mysummary1,mysummary2,file='/cellar/users/ramarty/Data/hla_ii/generated_data/fit_cancertype.RData')
+
+print('Tissues >= 5 completed.')
 
 load('/cellar/users/ramarty/Data/hla_ii/generated_data/fit_cancertype.RData')
 tabgene <- do.call(rbind,lapply(mysummary1,get_or))
@@ -171,10 +175,9 @@ for (i in 1:length(tissuetypes)) {
     cat("Done \n")
 }
 
-
-
-
 save(mysummary0,mysummary1,mysummary2,file='/cellar/users/ramarty/Data/hla_ii/generated_data/fit_cancertype.20.RData')
+
+print('Tissues >= 20 completed.')
 
 load('/cellar/users/ramarty/Data/hla_ii/generated_data/fit_cancertype.20.RData')
 tabgene <- do.call(rbind,lapply(mysummary1,get_or))
