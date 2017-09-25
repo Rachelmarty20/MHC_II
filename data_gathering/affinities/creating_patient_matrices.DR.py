@@ -10,14 +10,14 @@ def main(category):
     df = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/allele_matrices/{0}.csv'.format(category), index_col=0)
     patients_used = []
     for patient in patient_dictionary.keys():
-        patient_alleles = patient_dictionary[patient]
+        patient_alleles = patient_dictionary[patient][:2]
         try:
             df[patient] = df[patient_alleles].apply(PHBR, axis=1)
             patients_used.append(patient)
         except:
             print patient
     df.index = df['mutation']
-    df[patients_used].to_csv('/cellar/users/ramarty/Data/hla_ii/presentation/patient_matrices/{0}.csv'.format(category))
+    df[patients_used].to_csv('/cellar/users/ramarty/Data/hla_ii/presentation/patient_matrices/{0}.DR.csv'.format(category))
 
 def PHBR(x):
     number_of_alleles = len(x)
