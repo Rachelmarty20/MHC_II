@@ -34,7 +34,7 @@ summary(lme2)
 
 print('Models created.')
 
-pdf('/cellar/users/ramarty/Data/hla_ii/generated_figures/globalassoc_gam_harm.pdf')
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/globalassoc_gam_harm.', args[1], '.pdf', sep=''))
 thre <- c(0,0.5,1,1.5,2,2.5,3,4,5,Inf)
 xr= cut(x,breaks=thre)
 m <- tapply(y,xr,'mean')
@@ -55,7 +55,7 @@ plot(gam1,rug=FALSE,xlab='log affinity',ylab='logit mutation probability',main='
 
 dev.off()
 
-pdf('/cellar/users/ramarty/Data/hla_ii/generated_figures/globalassoc_descriptive.pdf')
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/globalassoc_descriptive.', args[1], '.pdf', sep=''))
 boxplot(x ~ y, outline=F, ylab='Affinity', xlab='Mutation')
 #
 hist(x[y==0],main='',xlim=c(0,10),ylim=c(0,1),prob=T,breaks=seq(0,100,by=.5),xlab='Affinity',ylab='Frequency',cex.lab=1.3,cex.axis=1.3)
@@ -110,7 +110,7 @@ tabpat <- do.call(rbind,lapply(mysummary2,get_or))
 xtable(tabgene[order(rownames(tabgene)),],digits=c(0,3,3,3,4))
 xtable(tabpat[order(rownames(tabpat)),],digits=c(0,3,3,3,4))
 
-pdf('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withingene_cancertype.pdf')
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withingene_cancertype.', args[1], '.pdf', sep='')
 x2plot <- tabgene[order(tabgene[,1]),]
 plot(x2plot[,1],1:nrow(x2plot),pch=15,xlim=c(0.25,4),yaxt='n',ylab='',xlab='Odds-ratio',log='x')
 segments(x0=x2plot[,2],x1=x2plot[,3],1:nrow(x2plot),lty=2)
@@ -118,7 +118,7 @@ text(x2plot[,2],1:nrow(x2plot),rownames(x2plot),pos=2)
 abline(v=1,col='gray',lwd=2)
 dev.off()
 
-pdf('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withinpat_cancertype.pdf')
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withinpat_cancertype.', args[1], '.pdf', sep=''))
 x2plot <- tabpat[order(tabpat[,1]),]
 plot(x2plot[,1],1:nrow(x2plot),pch=15,xlim=c(0.25,4),yaxt='n',ylab='',xlab='Odds-ratio',log='x')
 segments(x0=x2plot[,2],x1=x2plot[,3],1:nrow(x2plot),lty=2)
@@ -128,7 +128,7 @@ dev.off()
 
 npat <- table(tissue$Tissue)
 
-pdf('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withingene_cancertype_100pat.pdf')
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withingene_cancertype_100pat.', args[1], '.pdf', sep='')
 x2plot <- tabgene[order(tabgene[,1]),]
 x2plot <- x2plot[rownames(x2plot) %in% names(npat[npat>=100]), ]
 plot(x2plot[,1],1:nrow(x2plot),pch=15,xlim=c(0.25,4),yaxt='n',ylab='',xlab='Odds-ratio',log='x')
@@ -137,7 +137,7 @@ text(x2plot[,2],1:nrow(x2plot),rownames(x2plot),pos=2)
 abline(v=1,col='gray',lwd=2)
 dev.off()
 
-pdf('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withinpat_cancertype_100pat.pdf')
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withinpat_cancertype_100pat.', args[1], '.pdf', sep='')
 x2plot <- tabpat[order(tabpat[,1]),]
 x2plot <- x2plot[rownames(x2plot) %in% names(npat[npat>=100]), ]
 plot(x2plot[,1],1:nrow(x2plot),pch=15,xlim=c(0.25,4),yaxt='n',ylab='',xlab='Odds-ratio',log='x')
@@ -188,7 +188,7 @@ tabpat <- do.call(rbind,lapply(mysummary2,get_or))
 xtable(tabgene[order(rownames(tabgene)),],digits=c(0,3,3,3,4))
 xtable(tabpat[order(rownames(tabpat)),],digits=c(0,3,3,3,4))
 
-pdf('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withingene_cancertype.20.pdf')
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withingene_cancertype.20.', args[1], '.pdf', sep='')
 x2plot <- tabgene[order(tabgene[,1]),]
 plot(x2plot[,1],1:nrow(x2plot),pch=15,xlim=c(0.25,4),yaxt='n',ylab='',xlab='Odds-ratio',log='x')
 segments(x0=x2plot[,2],x1=x2plot[,3],1:nrow(x2plot),lty=2)
@@ -196,7 +196,7 @@ text(x2plot[,2],1:nrow(x2plot),rownames(x2plot),pos=2)
 abline(v=1,col='gray',lwd=2)
 dev.off()
 
-pdf('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withinpat_cancertype.20.pdf')
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withinpat_cancertype.20.', args[1], '.pdf', sep='')
 x2plot <- tabpat[order(tabpat[,1]),]
 plot(x2plot[,1],1:nrow(x2plot),pch=15,xlim=c(0.25,4),yaxt='n',ylab='',xlab='Odds-ratio',log='x')
 segments(x0=x2plot[,2],x1=x2plot[,3],1:nrow(x2plot),lty=2)
@@ -206,7 +206,7 @@ dev.off()
 
 npat <- table(tissue$Tissue)
 
-pdf('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withingene_cancertype_100pat.20.pdf')
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withingene_cancertype_100pat.20.', args[1], '.pdf', sep='')
 x2plot <- tabgene[order(tabgene[,1]),]
 x2plot <- x2plot[rownames(x2plot) %in% names(npat[npat>=100]), ]
 plot(x2plot[,1],1:nrow(x2plot),pch=15,xlim=c(0.25,4),yaxt='n',ylab='',xlab='Odds-ratio',log='x')
@@ -215,7 +215,7 @@ text(x2plot[,2],1:nrow(x2plot),rownames(x2plot),pos=2)
 abline(v=1,col='gray',lwd=2)
 dev.off()
 
-pdf('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withinpat_cancertype_100pat.20.pdf')
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/oddsratio_withinpat_cancertype_100pat.20.', args[1], '.pdf', sep='')
 x2plot <- tabpat[order(tabpat[,1]),]
 x2plot <- x2plot[rownames(x2plot) %in% names(npat[npat>=100]), ]
 plot(x2plot[,1],1:nrow(x2plot),pch=15,xlim=c(0.25,4),yaxt='n',ylab='',xlab='Odds-ratio',log='x')
