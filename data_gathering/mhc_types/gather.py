@@ -6,7 +6,7 @@ import samples
 barcodes = samples.get_barcodes()
 
 all_patient_dictionary = {}
-for i, barcode in enumerate(barcodes[:2000]):
+for i, barcode in enumerate(barcodes):
 
     patient_dictionary = {}
     directory = '/nrnb/users/ramarty/TCGA/exomes/{0}/hlaHD/sampleID/result/'.format(barcode)
