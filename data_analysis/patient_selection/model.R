@@ -78,7 +78,8 @@ pat= rep(rownames(mut),ncol(mut))
 nmut= colSums(mut)
 genesel= (gene %in% names(nmut[nmut>=5]))
 
-tissuetypes <- as.character(unique(tissue[,2]))
+tissuetypes <- c('HNSC', 'LUAD', 'PRAD', 'LUSC', 'LGG', 'BRCA', 'GBM', 'STAD')
+#tissuetypes <- as.character(unique(tissue[,2]))
 mysummary0 <- mysummary1 <- mysummary2 <- vector("list",length(tissuetypes))
 names(mysummary0) <- names(mysummary1) <- names(mysummary2) <- tissuetypes
 for (i in 1:length(tissuetypes)) {
@@ -152,7 +153,8 @@ pat= rep(rownames(mut),ncol(mut))
 nmut= colSums(mut)
 genesel= (gene %in% names(nmut[nmut>=20]))
 
-tissuetypes <- as.character(unique(tissue[,2]))
+tissuetypes <- c('HNSC', 'LUAD', 'PRAD', 'LUSC', 'LGG', 'BRCA', 'GBM', 'STAD')
+#tissuetypes <- as.character(unique(tissue[,2]))
 mysummary0 <- mysummary1 <- mysummary2 <- vector("list",length(tissuetypes))
 names(mysummary0) <- names(mysummary1) <- names(mysummary2) <- tissuetypes
 for (i in 1:length(tissuetypes)) {
