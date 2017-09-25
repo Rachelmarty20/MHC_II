@@ -8,8 +8,8 @@ args = commandArgs(trailingOnly=TRUE)
 
 #Format data
 tissue <- read.csv('/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/patient_tissues.csv',header=TRUE)
-mut <- read.csv(paste('/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/patient_mutations.cancer.', args[1], '.csv'),header=TRUE)
-aff <- read.csv(paste('/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/patient_affinities.cancer.', args[1], '.csv'),header=TRUE)
+mut <- read.csv(paste('/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/patient_mutations.cancer.', args[1], '.csv', sep=''),header=TRUE)
+aff <- read.csv(paste('/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/patient_affinities.cancer.', args[1], '.csv', sep=''),header=TRUE)
 patient <- as.character(mut[,1])
 mut <- as.matrix(mut[,-1])
 aff <- as.matrix(aff[,-1])
