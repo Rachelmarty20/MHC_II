@@ -32,6 +32,14 @@ summary(lme1)
 lme2= glmer(y[sel] ~ log(x[sel]) + (1|pat[sel]), family='binomial')
 summary(lme2)
 
+mysummarypan <- vector("list",2)
+mysummarypan[[1]] <- summary(lme1)
+mysummarypan[[2]] <- summary(lme2)
+tabgene <- do.call(rbind,lapply(mysummarypan,get_or))
+rownames(tabgene) <- c('mutation', 'patient')
+colnames(tabgene) <- c('OR', "conf_OR_low", 'conf_OR_high', 'P')
+write.table(tabgene, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/pan.", args[1], ".txt"))
+
 print('Models created.')
 
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/globalassoc_gam_harm.', args[1], '.pdf', sep=''))
