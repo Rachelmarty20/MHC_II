@@ -47,7 +47,7 @@ plot(log(tapply(x,xr,'mean')),log(m/(1-m)),xlab='log-affinity',ylab='logit proba
 gam1= gam(y[sel] ~ s(log(x[sel])), family='binomial')
 ypred= predict(gam1,type='response',se.fit=TRUE)
 o= order(x[sel])
-plot(x[sel][o],ypred$fit[o],type='l',xlim=c(0,10),xlab='Affinity',ylab='Probability of mutation',main='Generalized additive model')
+plot(x[sel][o],ypred$fit[o],type='l',xlim=c(0,30),xlab='Affinity',ylab='Probability of mutation',main='Generalized additive model')
 lines(x[sel][o],ypred$fit[o]-1.96*ypred$se.fit[o],lty=2)
 lines(x[sel][o],ypred$fit[o]+1.96*ypred$se.fit[o],lty=2)
 #
@@ -58,9 +58,9 @@ dev.off()
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/globalassoc_descriptive.', args[1], '.pdf', sep=''))
 boxplot(x ~ y, outline=F, ylab='Affinity', xlab='Mutation')
 #
-hist(x[y==0],main='',xlim=c(0,10),ylim=c(0,1),prob=T,breaks=seq(0,100,by=.5),xlab='Affinity',ylab='Frequency',cex.lab=1.3,cex.axis=1.3)
+hist(x[y==0],main='',xlim=c(0,100),ylim=c(0,0.5),prob=T,breaks=seq(0,100,by=5),xlab='Affinity',ylab='Frequency',cex.lab=1.3,cex.axis=1.3)
 par(new=TRUE)
-hist(x[y==1],main='',xlim=c(0,10),ylim=c(0,1),prob=T,breaks=seq(0,100,by=.5),border=2,xaxt='n',yaxt='n',xlab='',ylab='')
+hist(x[y==1],main='',xlim=c(0,100),ylim=c(0,0.5),prob=T,breaks=seq(0,100,by=5),border=2,xaxt='n',yaxt='n',xlab='',ylab='')
 legend('topright',c('No mutation','Mutation'),lty=1,col=1:2,cex=1.3)
 dev.off()
 
