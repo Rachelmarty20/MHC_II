@@ -30,8 +30,8 @@ def heatmap_overview(category):
 
 # Population statistics
 def population_frequency(kind):
-    patient_affinities = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/patient_affinities.cancer.{0}.csv'.format(category), index_col=0)
-    patient_mutations = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/patient_mutations.cancer.{0}.csv'.format(category), index_col=0)
+    patient_affinities = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/patient_affinities.cancer.{0}.csv'.format(kind), index_col=0)
+    patient_mutations = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/patient_mutations.cancer.{0}.csv'.format(kind), index_col=0)
 
     # group mutations by frequency
     counts = list(patient_mutations.sum().unique())
