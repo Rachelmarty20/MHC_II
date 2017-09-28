@@ -38,7 +38,7 @@ mysummarypan[[2]] <- summary(lme2)
 tabgene <- do.call(rbind,lapply(mysummarypan,get_or))
 rownames(tabgene) <- c('mutation', 'patient')
 colnames(tabgene) <- c('OR', "conf_OR_low", 'conf_OR_high', 'P')
-write.table(tabgene, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/pan.", args[1], ".txt"))
+write.table(tabgene, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/pan.", args[1], ".txt", sep=''))
 
 print('Models created.')
 
@@ -66,9 +66,9 @@ dev.off()
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/globalassoc_descriptive.', args[1], '.pdf', sep=''))
 boxplot(x ~ y, outline=F, ylab='Affinity', xlab='Mutation')
 #
-hist(x[y==0],main='',xlim=c(0,100),ylim=c(0,0.5),prob=T,breaks=seq(0,100,by=5),xlab='Affinity',ylab='Frequency',cex.lab=1.3,cex.axis=1.3)
+hist(x[y==0],main='',xlim=c(0,100),ylim=c(0,0.05),prob=T,breaks=seq(0,100,by=5),xlab='Affinity',ylab='Frequency',cex.lab=1.3,cex.axis=1.3)
 par(new=TRUE)
-hist(x[y==1],main='',xlim=c(0,100),ylim=c(0,0.5),prob=T,breaks=seq(0,100,by=5),border=2,xaxt='n',yaxt='n',xlab='',ylab='')
+hist(x[y==1],main='',xlim=c(0,100),ylim=c(0,0.05),prob=T,breaks=seq(0,100,by=5),border=2,xaxt='n',yaxt='n',xlab='',ylab='')
 legend('topright',c('No mutation','Mutation'),lty=1,col=1:2,cex=1.3)
 dev.off()
 
