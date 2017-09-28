@@ -16,9 +16,16 @@ PATH_TO_GENERATED_FIGURES = '/cellar/users/ramarty/Data/hla_ii/generated_figures
 
 def main(category):
 
+    heatmap_overview(category)
+
     population_frequency(category)
 
     peptide_class_comparison(category)
+
+
+# Heatmap
+def heatmap_overview(category):
+    None
 
 
 # Population statistics
@@ -39,7 +46,6 @@ def population_frequency(category):
     grouped = patient_affinities.ix[:, counts].median().reset_index()
     grouped.columns = ['index', 'scores']
     p, rho = sp.spearmanr(grouped.index, grouped.scores)[1], sp.spearmanr(grouped.index, grouped.scores)[0]
-    print p, rho
 
     # would be nice to combine these automatically
     plt.figure(figsize=(16, 2))
@@ -48,18 +54,18 @@ def population_frequency(category):
     plt.xlabel('Mutations')
     plt.ylabel('Median PHBR')
     plt.title('{0} {1}'.format(p, rho))
-    plt.savefig(PATH_TO_GENERATED_FIGURES + 'pop_frequency.scatter.{0}.pdf'.format(category))
+    plt.savefig(PATH_TO_GENERATED_FIGURES + '{0}/pop_frequency.scatter.pdf'.format(category))
 
     plt.figure(figsize=(20,8))
     sns.heatmap(patient_affinities.ix[:, counts], xticklabels=False, yticklabels=False, vmax=40, cmap=sns.cubehelix_palette(reverse=True, as_cmap=True))
-    plt.savefig(PATH_TO_GENERATED_FIGURES + 'pop_frequency.heatmap.{0}.pdf'.format(category))
+    plt.savefig(PATH_TO_GENERATED_FIGURES + '{0}/pop_frequency.heatmap.pdf'.format(category))
 
     plt.figure(figsize=(15.5,2))
     plt.gca().invert_yaxis()
     plt.bar(range(1, len(counts)+1), counts, color='grey')
     plt.xlim(0, 52)
     plt.ylabel('Mutation count in TCGA')
-    plt.savefig(PATH_TO_GENERATED_FIGURES + 'pop_frequency.bar.{0}.pdf'.format(category))
+    plt.savefig(PATH_TO_GENERATED_FIGURES + '{0}/pop_frequency.bar.pdf'.format(category))
 
 
 # Peptide type
@@ -69,7 +75,6 @@ def peptide_class_comparison(category):
     mutation_counts = pd.DataFrame(df.sum()).reset_index()
     mutation_counts.columns = ['mutation', 'count']
     driver_mutations = list(mutation_counts[mutation_counts['count'] > 10].mutation)
-    print len(driver_mutations)
     df = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/allele_matrices/indels.csv', index_col=0)
     restricted_alleles = [x for x in df.columns if 'DR' in x]
 
@@ -84,7 +89,6 @@ def peptide_class_comparison(category):
                 values = get_values_from_df(df.ix[app_restricted_space, :])
             else:
                 values = get_values_from_df(df.ix[app_restricted_space, restricted_alleles])
-            print category, len(values), len(df.index), len(app_restricted_space)
             value_types.append(values)
         else:
             df = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/allele_matrices/{0}.csv'.format(category), index_col=0)
@@ -94,7 +98,6 @@ def peptide_class_comparison(category):
             else:
                 values = get_values_from_df(df.ix[:, restricted_alleles])
             value_types.append(values)
-            print category, len(values)
 
     plotting = pd.DataFrame({'category': ['oncogene' for x in value_types[0]] + ['tsgene' for x in value_types[1]] + ['random' for x in value_types[2]] + ['common' for x in value_types[3]] + ['viral' for x in value_types[4]] + ['bacterial' for x in value_types[5]],
                          'best_rank': value_types[0] + value_types[1] + value_types[2] + value_types[3] + value_types[4] + value_types[5]})
@@ -105,7 +108,7 @@ def peptide_class_comparison(category):
     plt.xticks(rotation=45)
     plt.xlabel('')
     plt.ylim(0, 100)
-    plt.savefig(PATH_TO_GENERATED_FIGURES + 'peptide_class.boxplots.{0}.pdf'.format(category))
+    plt.savefig(PATH_TO_GENERATED_FIGURES + '{0}/peptide_class.boxplots.pdf'.format(category))
 
     perc_strong, perc_all, total_strong, total_all, total_count = [], [], [], [], []
     for i, category in enumerate(categories):
@@ -115,7 +118,6 @@ def peptide_class_comparison(category):
         total_strong.append(greater_than_strong)
         total_all.append(greater_than_all)
         total_count.append(total)
-        print category, float(greater_than_all)/total, float(greater_than_strong)/total
         perc_all.append(float(greater_than_all)/total)
         perc_strong.append(float(greater_than_strong)/total)
 
@@ -131,7 +133,7 @@ def peptide_class_comparison(category):
     plt.ylim(0, 0.45)
     plt.ylabel('Fraction of residues with binding peptides')
     plt.xlabel('')
-    plt.savefig(PATH_TO_GENERATED_FIGURES + 'peptide_class.percentages.{0}.pdf'.format(category))
+    plt.savefig(PATH_TO_GENERATED_FIGURES + '{0}/peptide_class.percentages.pdf'.format(category))
 
 
 def get_values_from_df(df):
