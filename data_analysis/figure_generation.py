@@ -48,18 +48,18 @@ def population_frequency(category):
     plt.xlabel('Mutations')
     plt.ylabel('Median PHBR')
     plt.title('{0} {1}'.format(p, rho))
-    plt.savefig(PATH_TO_GENERATED_FIGURES + 'pop_frequency.scatter.pdf')
+    plt.savefig(PATH_TO_GENERATED_FIGURES + 'pop_frequency.scatter.{0}.pdf'.format(category))
 
     plt.figure(figsize=(20,8))
     sns.heatmap(patient_affinities.ix[:, counts], xticklabels=False, yticklabels=False, vmax=40, cmap=sns.cubehelix_palette(reverse=True, as_cmap=True))
-    plt.savefig(PATH_TO_GENERATED_FIGURES + 'pop_frequency.heatmap.pdf')
+    plt.savefig(PATH_TO_GENERATED_FIGURES + 'pop_frequency.heatmap.{0}.pdf'.format(category))
 
     plt.figure(figsize=(15.5,2))
     plt.gca().invert_yaxis()
     plt.bar(range(1, len(counts)+1), counts, color='grey')
     plt.xlim(0, 52)
     plt.ylabel('Mutation count in TCGA')
-    plt.savefig(PATH_TO_GENERATED_FIGURES + 'pop_frequency.bar.pdf')
+    plt.savefig(PATH_TO_GENERATED_FIGURES + 'pop_frequency.bar.{0}.pdf'.format(category))
 
 
 # Peptide type
@@ -105,7 +105,7 @@ def peptide_class_comparison(category):
     plt.xticks(rotation=45)
     plt.xlabel('')
     plt.ylim(0, 100)
-    plt.savefig(PATH_TO_GENERATED_FIGURES + 'peptide_class.boxplots.pdf')
+    plt.savefig(PATH_TO_GENERATED_FIGURES + 'peptide_class.boxplots.{0}.pdf'.format(category))
 
     perc_strong, perc_all, total_strong, total_all, total_count = [], [], [], [], []
     for i, category in enumerate(categories):
@@ -131,7 +131,7 @@ def peptide_class_comparison(category):
     plt.ylim(0, 0.45)
     plt.ylabel('Fraction of residues with binding peptides')
     plt.xlabel('')
-    plt.savefig(PATH_TO_GENERATED_FIGURES + 'peptide_class.percentages.pdf')
+    plt.savefig(PATH_TO_GENERATED_FIGURES + 'peptide_class.percentages.{0}.pdf'.format(category))
 
 
 def get_values_from_df(df):
