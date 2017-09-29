@@ -104,6 +104,7 @@ def peptide_class_comparison(kind):
     plotting = pd.DataFrame({'category': ['oncogene' for x in value_types[0]] + ['tsgene' for x in value_types[1]] + ['random' for x in value_types[2]] + ['common' for x in value_types[3]] + ['viral' for x in value_types[4]] + ['bacterial' for x in value_types[5]],
                          'best_rank': value_types[0] + value_types[1] + value_types[2] + value_types[3] + value_types[4] + value_types[5]})
 
+    plt.figure(figsize=(8,6))
     ax = sns.boxplot(x='category', y='best_rank', data=plotting, showfliers=False, color='white')
     ax.grid(False)
     plt.ylabel('Residue Presentation Score')
@@ -130,6 +131,7 @@ def peptide_class_comparison(kind):
                                 'percentage': list(binders.Perc_all) + list(binders.Perc_strong),
                                 'binding': ['rank < 10%' for x in list(binders.Perc_all)] + ['rank < 2%' for x in list(binders.Perc_strong)]})
 
+    plt.figure(figsize=(8,6))
     ax = sns.barplot(x='category', y='percentage', hue='binding', data=all_binders, order=['oncogenes', 'tsgenes', 'random', 'common', 'viral', 'bacterial'], color='white')
     ax.grid(False)
     plt.xticks(rotation=45)
