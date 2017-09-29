@@ -3,21 +3,22 @@ import cPickle as pickle
 import sys
 
 
-def main(category):
+def main(category, gene):
 
     patient_dictionary = pickle.load(open('/cellar/users/ramarty/Data/hla_ii/hla_types/TCGA.HLA_classII.p'))
 
     df = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/allele_matrices/{0}.csv'.format(category), index_col=0)
     patients_used = []
     for patient in patient_dictionary.keys():
-        patient_alleles = patient_dictionary[patient][:2]
+        patient_alleles = patient_dictionary[patient][gene]
         try:
-            df[patient] = df[patient_alleles].apply(PHBR, axis=1)
-            patients_used.append(patient)
+            if len(patient_alleles) == 4:
+                df[patient] = df[patient_alleles].apply(PHBR, axis=1)
+                patients_used.append(patient)
         except:
             print patient
     df.index = df['mutation']
-    df[patients_used].to_csv('/cellar/users/ramarty/Data/hla_ii/presentation/patient_matrices/{0}.DR.csv'.format(category))
+    df[patients_used].to_csv('/cellar/users/ramarty/Data/hla_ii/presentation/patient_matrices/{0}.{1}.csv'.format(category, gene))
 
 def PHBR(x):
     number_of_alleles = len(x)
@@ -30,8 +31,8 @@ def PHBR(x):
 ###########################################  Main Method  #####################################
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         print 'Wrong number of arguments.'
         sys.exit()
-    main(sys.argv[1])
+    main(sys.argv[1], sys.argv[2])
     sys.exit()

@@ -10,10 +10,13 @@ def main(category):
     df = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/allele_matrices/{0}.csv'.format(category), index_col=0)
     patients_used = []
     for patient in patient_dictionary.keys():
-        patient_alleles = patient_dictionary[patient]
+        patient_alleles = []
+        for gene in ['DR', 'DP', 'DQ']:
+            patient_alleles.extend(patient_dictionary[patient][gene])
         try:
-            df[patient] = df[patient_alleles].apply(PHBR, axis=1)
-            patients_used.append(patient)
+            if len(patient_alleles == 12):
+                df[patient] = df[patient_alleles].apply(PHBR, axis=1)
+                patients_used.append(patient)
         except:
             print patient
     df.index = df['mutation']

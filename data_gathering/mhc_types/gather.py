@@ -55,28 +55,34 @@ patients = list(patient_types_df.index)
 
 dictionary = {}
 for patient in patients:
+    patient_dictionary = {}
     try:
-        # DR
+        # DR - adding two of each for consistency sake with other genes
         alleles = list(patient_types_df.ix[patient][['DRB1_allele1', 'DRB1_allele2']])
-        if '-' in alleles:
-            continue
+        alleles.extend(list(patient_types_df.ix[patient][['DRB1_allele1', 'DRB1_allele2']]))
+        patient_dictionary['DR'] = alleles
 
         # DP
+        alleles = []
         DA = list(patient_types_df.ix[patient][['DPA1_allele1', 'DPA1_allele2']])
         DB = list(patient_types_df.ix[patient][['DPB1_allele1', 'DPB1_allele2']])
         if ('-' not in DA) & ('-' not in DB):
             for a in DA:
                 for b in DB:
                     alleles.append('HLA-{0}-{1}'.format(a.strip(), b.strip()))
+        patient_dictionary['DP'] = alleles
 
         # DQ
+        alleles = []
         DA = list(patient_types_df.ix[patient][['DQA1_allele1', 'DQA1_allele2']])
         DB = list(patient_types_df.ix[patient][['DQB1_allele1', 'DQB1_allele2']])
         if ('-' not in DA) & ('-' not in DB):
             for a in DA:
                 for b in DB:
                     alleles.append('HLA-{0}-{1}'.format(a.strip(), b.strip()))
-        dictionary[patient] = alleles
+        patient_dictionary['DQ'] = alleles
+
+        dictionary[patient] = patient_dictionary
     except:
         # weeds out the patients with the failed typing
         print patient
