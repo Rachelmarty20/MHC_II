@@ -14,7 +14,7 @@ def main(category):
         for gene in ['DR', 'DP', 'DQ']:
             patient_alleles.extend(patient_dictionary[patient][gene])
         try:
-            if len(patient_alleles == 12):
+            if len(patient_alleles) == 12:
                 df[patient] = df[patient_alleles].apply(PHBR, axis=1)
                 patients_used.append(patient)
         except:
