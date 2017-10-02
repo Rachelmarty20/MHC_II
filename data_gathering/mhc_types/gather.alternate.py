@@ -3,7 +3,8 @@ import cPickle as pickle
 import samples
 
 # get TCGA types
-samples =
+population_dictionary_stripped = samples.get_population_dictionary()
+
 
 all_patient_dictionary = {}
 for population in population_dictionary_stripped.keys():
