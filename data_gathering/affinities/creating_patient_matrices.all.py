@@ -39,8 +39,8 @@ def PHBR(x):
 ###########################################  Main Method  #####################################
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         print 'Wrong number of arguments.'
         sys.exit()
-    main(sys.argv[1])
+    main(sys.argv[1], sys.argv[2])
     sys.exit()
