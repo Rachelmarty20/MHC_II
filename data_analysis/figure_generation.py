@@ -148,7 +148,7 @@ def heatmap_overview(category, patient_affinities, patient_mutations):
     sns.clustermap(patient_affinities_small.ix[list(patient_df.index), list(mutation_df.Mutation)],#, xticklabels=False, yticklabels=False,
                row_colors=[list(patient_df.Ethnicity_Color), list(patient_df.Immune_Color), list(patient_df.Color)],
                col_colors=[list(mutation_df.Color), list(gene_df.Color)], vmax=40, cmap=sns.cubehelix_palette(reverse=True, as_cmap=True))
-    plt.savefig(PATH_TO_GENERATED_FIGURES + 'clustermap.PHBR.pdf')
+    plt.savefig(PATH_TO_GENERATED_FIGURES + '{0}/clustermap.pdf'.format(category))
 
 
 # Population statistics
