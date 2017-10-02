@@ -9,7 +9,7 @@ population_dictionary_stripped = samples.get_population_dictionary()
 all_patient_dictionary = {}
 for population in population_dictionary_stripped.keys():
 
-    for i, sample in zip(population_dictionary_stripped[population]):
+    for i, sample in enumerate(population_dictionary_stripped[population]):
         print sample
 
         patient_dictionary = {}
