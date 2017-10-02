@@ -4,11 +4,11 @@
 #$ -o /cellar/users/ramarty/Data/hla_ii/sge-system_files
 #$ -e /cellar/users/ramarty/Data/hla_ii/sge-system_files
 #$ -cwd
-#$ -t 1-2
+#$ -t 1-3
 #$ -l h_vmem=2G
 #$ -tc 50
 #$ -l long
-set categories=(oncogenes tsgenes)
+set categories=(passenger common indel)
 
 set category=$categories[$SGE_TASK_ID]
 
