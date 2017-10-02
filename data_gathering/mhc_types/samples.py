@@ -61,3 +61,4 @@ def get_population_dictionary():
     population_dictionary_stripped = {}
     for i, population in enumerate(all_populations):
         population_dictionary_stripped[population] = [x.split('.')[0] for x in all_samples_raw[i][0].split(' ') if 'sra' in x]
+    return population_dictionary_stripped
