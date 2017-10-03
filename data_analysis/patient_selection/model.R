@@ -118,6 +118,11 @@ tabpat <- do.call(rbind,lapply(mysummary2,get_or))
 xtable(tabgene[order(rownames(tabgene)),],digits=c(0,3,3,3,4))
 xtable(tabpat[order(rownames(tabpat)),],digits=c(0,3,3,3,4))
 
+colnames(tabgene) <- c('OR', "conf_OR_low", 'conf_OR_high', 'P')
+colnames(tabpat) <- c('OR', "conf_OR_low", 'conf_OR_high', 'P')
+write.table(tabgene, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues.5mut.", args[1], ".txt", sep=''))
+write.table(tabpat, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues.5mut.", args[1], ".txt", sep=''))
+
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/', args[1], '/oddsratio_withingene_cancertype.pdf', sep=''))
 x2plot <- tabgene[order(tabgene[,1]),]
 plot(x2plot[,1],1:nrow(x2plot),pch=15,xlim=c(0.25,4),yaxt='n',ylab='',xlab='Odds-ratio',log='x')
@@ -195,6 +200,11 @@ tabpat <- do.call(rbind,lapply(mysummary2,get_or))
 
 xtable(tabgene[order(rownames(tabgene)),],digits=c(0,3,3,3,4))
 xtable(tabpat[order(rownames(tabpat)),],digits=c(0,3,3,3,4))
+
+colnames(tabgene) <- c('OR', "conf_OR_low", 'conf_OR_high', 'P')
+colnames(tabpat) <- c('OR', "conf_OR_low", 'conf_OR_high', 'P')
+write.table(tabgene, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues.20mut.", args[1], ".txt", sep=''))
+write.table(tabpat, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues.20mut.", args[1], ".txt", sep=''))
 
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/', args[1], '/oddsratio_withingene_cancertype.20.pdf', sep=''))
 x2plot <- tabgene[order(tabgene[,1]),]
