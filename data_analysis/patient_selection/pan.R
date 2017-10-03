@@ -10,10 +10,10 @@ args = commandArgs(trailingOnly=TRUE)
 # args3 = mutation matrix
 # args4 = affinity matrix
 
-print(args1)
-print(args2)
-print(args3)
-print(args4)
+print(args[1])
+print(args[2])
+print(args[3])
+print(args[4])
 
 #Format data
 mut <- read.csv(args[3], header=TRUE)
