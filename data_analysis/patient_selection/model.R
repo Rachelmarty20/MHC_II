@@ -42,7 +42,7 @@ write.table(tabgene, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_d
 
 print('Models created.')
 
-pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/', args[1], '/globalassoc_gam_harm.pdf', sep=''))
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/', args[1], '/globalassoc_gam_harm.scatter.pdf', sep=''))
 #thre <- c(0,0.5,1,1.5,2,2.5,3,4,5,Inf)
 #xr= cut(x,breaks=thre)
 #m <- tapply(y,xr,'mean')
@@ -50,17 +50,21 @@ thre <- c(seq(0,30,length=20),Inf)
 xr= cut(x,breaks=thre)
 m <- tapply(y,xr,'mean')
 plot(log(tapply(x,xr,'mean')),log(m/(1-m)),xlab='log-affinity',ylab='logit probability of mutation')
+dev.off()
 
 #
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/', args[1], '/globalassoc_gam_harm.model.pdf', sep=''))
 gam1= gam(y[sel] ~ s(log(x[sel])), family='binomial')
 ypred= predict(gam1,type='response',se.fit=TRUE)
 o= order(x[sel])
 plot(x[sel][o],ypred$fit[o],type='l',xlim=c(0,30),xlab='Affinity',ylab='Probability of mutation',main='Generalized additive model')
+dev.off()
+
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/', args[1], '/globalassoc_gam_harm.model_log.pdf', sep=''))
 lines(x[sel][o],ypred$fit[o]-1.96*ypred$se.fit[o],lty=2)
 lines(x[sel][o],ypred$fit[o]+1.96*ypred$se.fit[o],lty=2)
 #
 plot(gam1,rug=FALSE,xlab='log affinity',ylab='logit mutation probability',main='Estimated logit(prob) vs log(affinity)')
-
 dev.off()
 
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/',  args[1], '/globalassoc_descriptive.pdf', sep=''))
