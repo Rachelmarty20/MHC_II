@@ -44,7 +44,7 @@ for (i in 1:2)
     # get 1/10 of patients
     patients <- sample(sampled_pats, round(length(sampled_pats)/10))
     # set sample rows to the rows with those patients
-    index <- which(df$pat %in% patients)
+    sample_rows <- which(df$pat %in% patients)
     # to test the model
     DataC1=df[sample_rows, ]
     # to train the model
@@ -77,7 +77,7 @@ for (i in 1:2)
     # get 1/10 of patients
     patients <- sample(sampled_pats, round(length(sampled_pats)/10))
     # set sample rows to the rows with those patients
-    index <- which(df$pat %in% patients)
+    sample_rows <- which(df$pat %in% patients)
     # to test the model
     DataC1=df[sample_rows, ]
     # to train the model
@@ -110,7 +110,7 @@ for (i in 1:2)
     # get 1/10 of patients
     patients <- sample(sampled_pats, round(length(sampled_pats)/10))
     # set sample rows to the rows with those patients
-    index <- which(df$pat %in% patients)
+    sample_rows <- which(df$pat %in% patients)
     # to test the model
     DataC1=df[sample_rows, ]
     # to train the model
