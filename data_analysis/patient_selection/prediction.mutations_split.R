@@ -28,7 +28,8 @@ nmut= colSums(mut)
 sel= gene %in% names(nmut[nmut>=mutation_threshold])
 
 # to select a smaller data subset
-sampled_pats = head(unique(pat), 500)
+#sampled_pats = head(unique(pat), 500)
+sampled_pats = unique(pat)
 sel_pat = pat %in% sampled_pats
 
 df = data.frame(y[sel&sel_pat], x[sel&sel_pat], z[sel&sel_pat], pat[sel&sel_pat])
@@ -38,7 +39,7 @@ colnames(df)<-c('y', 'x', 'z', 'pat')
 # both MHC-I and MHC-II
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:2)
+for (i in 1:10)
 {
     print(i)
     # sample indices
@@ -69,7 +70,7 @@ roc_obj <- roc(results_df$label_fact, results_df$predicted_prob)
 # only MHC-I
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:2)
+for (i in 1:10)
 {
     print(i)
     # sample indices
@@ -100,7 +101,7 @@ roc_objI <- roc(results_dfI$label_fact, results_dfI$predicted_prob)
 # only MHC-II
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:2)
+for (i in 1:10)
 {
     print(i)
     # sample indices
