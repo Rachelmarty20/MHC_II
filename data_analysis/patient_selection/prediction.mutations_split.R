@@ -41,10 +41,8 @@ all_predictions=NULL
 for (i in 1:2)
 {
     print(i)
-    # get 1/10 of patients
-    patients <- sample(sampled_pats, round(length(sampled_pats)/10))
-    # set sample rows to the rows with those patients
-    index <- which(df$pat %in% patients)
+    # sample indices
+    sample_rows = sample(nrow(df), round(nrow(df)/10))
     # to test the model
     DataC1=df[sample_rows, ]
     # to train the model
@@ -64,7 +62,7 @@ colnames(results_df)<-c('label', 'predicted')
 results_df$predicted_prob<-exp(results_df$predicted)
 # labels as factors
 results_df$label_fact <- factor(results_df$label)
-
+# create the roc object
 roc_obj <- roc(results_df$label_fact, results_df$predicted_prob)
 
 
@@ -74,10 +72,8 @@ all_predictions=NULL
 for (i in 1:2)
 {
     print(i)
-    # get 1/10 of patients
-    patients <- sample(sampled_pats, round(length(sampled_pats)/10))
-    # set sample rows to the rows with those patients
-    index <- which(df$pat %in% patients)
+    # sample indices
+    sample_rows = sample(nrow(df), round(nrow(df)/10))
     # to test the model
     DataC1=df[sample_rows, ]
     # to train the model
@@ -97,7 +93,7 @@ colnames(results_dfI)<-c('label', 'predicted')
 results_dfI$predicted_prob<-exp(results_dfI$predicted)
 # labels as factors
 results_dfI$label_fact <- factor(results_dfI$label)
-
+# create the roc object
 roc_objI <- roc(results_dfI$label_fact, results_dfI$predicted_prob)
 
 
@@ -107,10 +103,8 @@ all_predictions=NULL
 for (i in 1:2)
 {
     print(i)
-    # get 1/10 of patients
-    patients <- sample(sampled_pats, round(length(sampled_pats)/10))
-    # set sample rows to the rows with those patients
-    index <- which(df$pat %in% patients)
+    # sample indices
+    sample_rows = sample(nrow(df), round(nrow(df)/10))
     # to test the model
     DataC1=df[sample_rows, ]
     # to train the model
@@ -130,7 +124,7 @@ colnames(results_dfII)<-c('label', 'predicted')
 results_dfII$predicted_prob<-exp(results_dfII$predicted)
 # labels as factors
 results_dfII$label_fact <- factor(results_dfII$label)
-
+# create the roc object
 roc_objII <- roc(results_dfII$label_fact, results_dfII$predicted_prob)
 
 # output results
@@ -141,10 +135,10 @@ auc_summary[[3]] <- c(ci(roc_objII))
 auc_df <- data.frame(auc_summary)
 colnames(auc_df) <- c('AUC', 'low_CI', 'high_CI')
 rownames(auc_df) <- c('Both', 'Only_I', 'Only_II')
-write.table(tabgene, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions.patient_split.", args[1], ".txt", sep=''))
+write.table(tabgene, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions.mutations_split.", args[1], ".txt", sep=''))
 
 # Plot the ROCs
-pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/predictions/ROC.patient_split.threshold_', args[1], '.pdf', sep=''))
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/predictions/ROC.mutations_split.threshold_', args[1], '.pdf', sep=''))
 plot(roc_obj, col='red')
 plot(roc_objI, col='darkgreen', add=TRUE)
 plot(roc_objII, col='blue', add=TRUE)
