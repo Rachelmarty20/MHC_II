@@ -39,7 +39,7 @@ colnames(df)<-c('y', 'x', 'z', 'pat')
 # both MHC-I and MHC-II
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:10)
+for (i in 1:3)
 {
     print(i)
     # sample indices
@@ -70,7 +70,7 @@ roc_obj <- roc(results_df$label_fact, results_df$predicted_prob)
 # only MHC-I
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:10)
+for (i in 1:3)
 {
     print(i)
     # sample indices
@@ -101,7 +101,7 @@ roc_objI <- roc(results_dfI$label_fact, results_dfI$predicted_prob)
 # only MHC-II
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:10)
+for (i in 1:3)
 {
     print(i)
     # sample indices
@@ -134,8 +134,8 @@ auc_summary[[1]] <- c(ci(roc_obj))
 auc_summary[[2]] <- c(ci(roc_objI))
 auc_summary[[3]] <- c(ci(roc_objII))
 auc_df <- data.frame(auc_summary)
-colnames(auc_df) <- c('AUC', 'low_CI', 'high_CI')
-rownames(auc_df) <- c('Both', 'Only_I', 'Only_II')
+colnames(auc_df) <- c('Both', 'Only_I', 'Only_II')
+rownames(auc_df) <- c('low_CI', 'AUC', 'high_CI')
 write.table(auc_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions.mutations_split.", args[1], ".txt", sep=''))
 
 # Plot the ROCs

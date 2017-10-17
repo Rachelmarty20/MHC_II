@@ -139,8 +139,8 @@ auc_summary[[1]] <- c(ci(roc_obj))
 auc_summary[[2]] <- c(ci(roc_objI))
 auc_summary[[3]] <- c(ci(roc_objII))
 auc_df <- data.frame(auc_summary)
-colnames(auc_df) <- c('AUC', 'low_CI', 'high_CI')
-rownames(auc_df) <- c('Both', 'Only_I', 'Only_II')
+colnames(auc_df) <- c('Both', 'Only_I', 'Only_II')
+rownames(auc_df) <- c('low_CI', 'AUC', 'high_CI')
 write.table(auc_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions.patient_split.", args[1], ".txt", sep=''))
 
 # Plot the ROCs
