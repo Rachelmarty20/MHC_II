@@ -8,6 +8,7 @@ PATH_TO_DATA = '/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/'
 
 args = commandArgs(trailingOnly=TRUE)
 mutation_threshold = as.integer(args[1])
+iterations = as.integer(args[2])
 
 #Format data
 tissue <- read.csv(paste(PATH_TO_DATA, 'patient_tissues.csv', sep=""),header=TRUE)
@@ -39,7 +40,7 @@ colnames(df)<-c('y', 'x', 'z', 'pat')
 # both MHC-I and MHC-II
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:3)
+for (i in 1:iterations)
 {
     print(i)
     # sample indices
@@ -70,7 +71,7 @@ roc_obj <- roc(results_df$label_fact, results_df$predicted_prob)
 # only MHC-I
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:3)
+for (i in 1:iterations)
 {
     print(i)
     # sample indices
@@ -101,7 +102,7 @@ roc_objI <- roc(results_dfI$label_fact, results_dfI$predicted_prob)
 # only MHC-II
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:3)
+for (i in 1:iterations)
 {
     print(i)
     # sample indices
