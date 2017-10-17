@@ -137,10 +137,10 @@ auc_summary[[3]] <- c(ci(roc_objII))
 auc_df <- data.frame(auc_summary)
 colnames(auc_df) <- c('Both', 'Only_I', 'Only_II')
 rownames(auc_df) <- c('low_CI', 'AUC', 'high_CI')
-write.table(auc_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions.mutations_split.", args[1], ".txt", sep=''))
+write.table(auc_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions.mutations_split.", args[1], '.', args[2], ".txt", sep=''))
 
 # Plot the ROCs
-pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/predictions/ROC.mutations_split.threshold_', args[1], '.pdf', sep=''))
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/predictions/ROC.mutations_split.threshold_', args[1], '.', args[2], '.pdf', sep=''))
 plot(roc_obj, col='red')
 plot(roc_objI, col='darkgreen', add=TRUE)
 plot(roc_objII, col='blue', add=TRUE)
