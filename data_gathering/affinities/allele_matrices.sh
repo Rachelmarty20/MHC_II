@@ -8,7 +8,7 @@
 #$ -l h_vmem=2G
 #$ -tc 50
 #$ -l long
-set categories=(passenger)
+set categories=(germline)
 
 set category=$categories[$SGE_TASK_ID]
 

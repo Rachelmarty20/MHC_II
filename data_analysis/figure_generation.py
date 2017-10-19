@@ -37,9 +37,9 @@ def heatmap_overview(category, patient_affinities, patient_mutations):
     indel_muts = [x for x in all_mutations if len(x.split('_')) == 3]
 
     clinical = pd.read_csv(PATH_TO_DATA + 'data/clinical/ancestory.csv', index_col=0)
-    asian = pd.Series([x for x in list(clinical[clinical.race.isin(['ASIAN'])].index) if x in list(patient_affinities.index)]).sample(500)
-    black = pd.Series([x for x in list(clinical[clinical.race.isin(['BLACK OR AFRICAN AMERICAN'])].index) if x in list(patient_affinities.index)]).sample(500)
-    white = pd.Series([x for x in list(clinical[clinical.race.isin(['WHITE'])].index) if x in list(patient_affinities.index)]).sample(500)
+    asian = pd.Series([x for x in list(clinical[clinical.race.isin(['ASIAN'])].index) if x in list(patient_affinities.index)]).sample(400)
+    black = pd.Series([x for x in list(clinical[clinical.race.isin(['BLACK OR AFRICAN AMERICAN'])].index) if x in list(patient_affinities.index)]).sample(400)
+    white = pd.Series([x for x in list(clinical[clinical.race.isin(['WHITE'])].index) if x in list(patient_affinities.index)]).sample(400)
 
     restricted_patients = list(asian) + list(black) + list(white)
     patient_affinities_small = patient_affinities.ix[restricted_patients, :]
