@@ -69,7 +69,7 @@ roc_objII <- roc(results_dfII$label_fact, results_dfII$predicted_prob)
 
 # output results
 auc_summary <-vector("list", 1)
-auc_summary[[3]] <- c(ci(roc_objII))
+auc_summary[[1]] <- c(ci(roc_objII))
 auc_df <- data.frame(auc_summary)
 colnames(auc_df) <- c('Only_II')
 rownames(auc_df) <- c('low_CI', 'AUC', 'high_CI')
