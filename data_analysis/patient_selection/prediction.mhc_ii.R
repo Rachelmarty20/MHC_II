@@ -28,12 +28,12 @@ nmut= colSums(mut)
 sel= gene %in% names(nmut[nmut>=5])
 
 # to select a smaller data subset
-sampled_pats = head(unique(pat), 500)
+sampled_pats = head(unique(pat), 100)
 #sampled_pats = unique(pat)
 sel_pat = pat %in% sampled_pats
 
-df = data.frame(y[sel&sel_pat], x[sel&sel_pat], z[sel&sel_pat], pat[sel&sel_pat])
-colnames(df)<-c('y', 'x', 'z', 'pat')
+df = data.frame(y[sel&sel_pat], z[sel&sel_pat], pat[sel&sel_pat])
+colnames(df)<-c('y', 'z', 'pat')
 
 # linear - PHBR
 if (model == 0){
