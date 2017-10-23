@@ -158,26 +158,3 @@ legend("bottomright",
       col=c('red','darkgreen', 'blue'),
       lwd=c(2.5,2.5))
  dev.off()
-
-
-
-# only MHC-II
-all_labels=NULL
-all_predictions=NULL
-for (i in 1:iterations)
-{
-    print(i)
-    # sample indices
-    sample_rows = sample(nrow(df), round(nrow(df)/10))
-    # to test the model
-    DataC1=df[sample_rows, ]
-    # to train the model
-    DataCV=df[-sample_rows, ]
-    # train the model
-    M1 <- glmer(y ~ log(z) + (1|pat), data=DataCV, family='binomial')
-    # predict mutation probabilities
-    P1=predict(M1, DataC1)
-    names(P1)=NULL
-    all_predictions= c(all_predictions, P1)
-    all_labels = c(all_labels, DataC1$y)
-}
