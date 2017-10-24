@@ -45,7 +45,7 @@ dev.off()
 # MHC-II
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_ii.threshold_', mutation_threshold, '.pdf', sep=''))
 gam2= gam(y[sel] ~ s(log(z[sel])), family='binomial')
-ypred= predict(gam1,type='response',se.fit=TRUE)
+ypred= predict(gam2,type='response',se.fit=TRUE)
 o= order(z[sel])
 plot(z[sel][o],ypred$fit[o],type='l',xlim=c(1,100),xlab='MHC-II PHBR',ylab='Mutation probability',main='Generalized additive model')
 lines(z[sel][o],ypred$fit[o]-1.96*ypred$se.fit[o],lty=2)
