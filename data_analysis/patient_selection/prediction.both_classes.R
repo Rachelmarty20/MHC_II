@@ -9,6 +9,7 @@ PATH_TO_DATA = '/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/'
 args = commandArgs(trailingOnly=TRUE)
 mutation_threshold = as.integer(args[1])
 iterations = as.integer(args[2])
+model = as.integer(args[3])
 
 #Format data
 tissue <- read.csv(paste(PATH_TO_DATA, 'patient_tissues.csv', sep=""),header=TRUE)
