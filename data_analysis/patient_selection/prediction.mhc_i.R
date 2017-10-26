@@ -14,18 +14,18 @@ model = as.integer(args[3])
 #Format data
 tissue <- read.csv(paste(PATH_TO_DATA, 'patient_tissues.csv', sep=""),header=TRUE)
 mut <- read.csv(paste(PATH_TO_DATA, 'combined_classes/patient_mutations.csv', sep=""),header=TRUE)
-aff2 <- read.csv(paste(PATH_TO_DATA, 'combined_classes/patient_affinities.class_ii.csv', sep=""),header=TRUE)
+aff1 <- read.csv(paste(PATH_TO_DATA, 'combined_classes/patient_affinities.class_i.csv', sep=""),header=TRUE)
 patient <- as.character(mut[,1])
 mut <- as.matrix(mut[,-1])
-aff2 <- as.matrix(aff2[,-1])
-rownames(mut) <- rownames(aff2) <- patient
+aff1 <- as.matrix(aff1[,-1])
+rownames(mut) <- rownames(aff1) <- patient
 
 # probably need to update
-y= as.vector(mut); z= as.vector(aff2)
+y= as.vector(mut); z= as.vector(aff1)
 gene= rep(colnames(mut),each=nrow(mut))
 pat= rep(rownames(mut),ncol(mut))
 nmut= colSums(mut)
-sel= gene %in% names(nmut[nmut>mutation_threshold])
+sel= gene %in% names(nmut[nmut>=mutation_threshold])
 
 # to select a smaller data subset
 #sampled_pats = head(unique(pat), 100)
@@ -144,15 +144,15 @@ roc_objII <- roc(results_dfII$label_fact, results_dfII$predicted_prob)
 auc_summary <-vector("list", 1)
 auc_summary[[1]] <- c(ci(roc_objII))
 auc_df <- data.frame(auc_summary)
-colnames(auc_df) <- c('Only_II')
+colnames(auc_df) <- c('Only_I')
 rownames(auc_df) <- c('low_CI', 'AUC', 'high_CI')
-write.table(auc_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions.mhc_ii.model_", args[3], ".", args[1], '.', args[2], ".txt", sep=''))
+write.table(auc_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions.mhc_i.model_", args[3], ".", args[1], '.', args[2], ".txt", sep=''))
 
 # Plot the ROCs
-pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/predictions/ROC.mhc_ii.model_', args[3], '.threshold_', args[1], '.', args[2], '.pdf', sep=''))
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/predictions/ROC.mhc_i.model_', args[3], '.threshold_', args[1], '.', args[2], '.pdf', sep=''))
 plot(roc_objII, col='blue', add=TRUE)
 legend("bottomright",
-  legend = c("MHC-II"),
+  legend = c("MHC-I"),
       col=c('blue'),
       lwd=c(2.5,2.5))
  dev.off()
