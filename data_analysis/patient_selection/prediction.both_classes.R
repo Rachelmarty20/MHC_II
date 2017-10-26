@@ -176,11 +176,9 @@ write.table(auc_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_da
 
 # Plot the ROCs
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/predictions/ROC.both_classes.model_', args[3], '.threshold_', args[1], '.', args[2], '.pdf', sep=''))
-plot(roc_obj, col='red')
-plot(roc_objI, col='darkgreen', add=TRUE)
 plot(roc_objII, col='blue', add=TRUE)
 legend("bottomright",
-  legend = c("MHC-I and MHC-II", "MHC-I", "MHC-II"),
-      col=c('red','darkgreen', 'blue'),
+  legend = c("MHC-I and MHC-II"),
+      col=c('blue'),
       lwd=c(2.5,2.5))
  dev.off()
