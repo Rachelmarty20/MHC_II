@@ -150,7 +150,7 @@ write.table(auc_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_da
 
 # Plot the ROCs
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/predictions/ROC.mhc_ii.model_', args[3], '.threshold_', args[1], '.', args[2], '.pdf', sep=''))
-plot(roc_objII, col='blue', add=TRUE)
+plot(roc_objII, col='blue')
 legend("bottomright",
   legend = c("MHC-II"),
       col=c('blue'),
