@@ -28,6 +28,7 @@ pat= rep(rownames(mut),ncol(mut))
 nmut= colSums(mut)
 sel= gene %in% names(nmut[nmut>=mutation_threshold])
 
+'''
 # MHC-I
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i.threshold_', mutation_threshold, '.pdf', sep=''))
 gam1= gam(y[sel] ~ s(log(x[sel])), family='binomial')
@@ -54,6 +55,7 @@ dev.off()
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam_log.mhc_ii.threshold_', mutation_threshold, '.pdf', sep=''))
 plot(gam2,rug=FALSE,xlab='log MHC-II PHBR',ylab='logit mutation probability',main='Estimated logit(prob) vs log(affinity)')
 dev.off()
+'''
 
 # MHC-I / MHC-II
 
