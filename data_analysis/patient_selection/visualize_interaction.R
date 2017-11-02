@@ -63,10 +63,12 @@ pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/ga
 plot(gam_interact, all.terms=TRUE, scheme=1, ylim=c(0,4.5), xlim=c(-2,2),
      xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
 dev.off()
+'''
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.log_mhc_i_log_mhc_ii.threshold_', mutation_threshold, '.heatmap_points.pdf', sep=''))
 plot(gam_interact, all.terms=TRUE, scheme=c(2,1), ylim=c(0,4.5), xlim=c(-2,2),
      xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
 dev.off()
+'''
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.log_mhc_i_log_mhc_ii.threshold_', mutation_threshold, '.heatmap.pdf', sep=''))
 plot(gam_interact, rug=FALSE, all.terms=TRUE, scheme=c(2,1), ylim=c(0,4.5), xlim=c(-2,2),
      xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
@@ -76,10 +78,12 @@ pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/ga
 plot(gam_interact, all.terms=TRUE, scheme=1,
      xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
 dev.off()
+'''
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.log_mhc_i_log_mhc_ii.threshold_', mutation_threshold, '.heatmap_points.whole.pdf', sep=''))
 plot(gam_interact, all.terms=TRUE, scheme=c(2,1),
      xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
 dev.off()
+'''
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.log_mhc_i_log_mhc_ii.threshold_', mutation_threshold, '.heatmap.whole.pdf', sep=''))
 plot(gam_interact, rug=FALSE, all.terms=TRUE, scheme=c(2,1),
      xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
@@ -92,10 +96,12 @@ pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/ga
 plot(gam_interact_nonlog, all.terms=TRUE, scheme=1, ylim=c(0,60), xlim=c(0,5),
      xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
 dev.off()
+'''
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i_mhc_ii.threshold_', mutation_threshold, '.heatmap_points.pdf', sep=''))
 plot(gam_interact_nonlog, all.terms=TRUE, scheme=c(2,1), ylim=c(0,60), xlim=c(0,5),
      xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
 dev.off()
+'''
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i_mhc_ii.threshold_', mutation_threshold, '.heatmap.pdf', sep=''))
 plot(gam_interact_nonlog, rug=FALSE, se=TRUE, scheme=2, ylim=c(0,60), xlim=c(0,5),
      xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
@@ -105,10 +111,12 @@ pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/ga
 plot(gam_interact_nonlog, all.terms=TRUE, scheme=1,
      xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
 dev.off()
+'''
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i_mhc_ii.threshold_', mutation_threshold, '.heatmap_points.whole.pdf', sep=''))
 plot(gam_interact_nonlog, all.terms=TRUE, scheme=c(2,1),
      xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
 dev.off()
+'''
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i_mhc_ii.threshold_', mutation_threshold, '.heatmap.whole.pdf', sep=''))
 plot(gam_interact_nonlog, rug=FALSE, se=TRUE, scheme=2,
      xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
