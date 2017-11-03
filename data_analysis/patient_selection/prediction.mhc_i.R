@@ -137,22 +137,25 @@ colnames(results_dfII)<-c('label', 'predicted')
 results_dfII$predicted_prob<-exp(results_dfII$predicted)
 # labels as factors
 results_dfII$label_fact <- factor(results_dfII$label)
+write.table(results_dfII, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions.mhc_i.model_", args[3], ".", args[1], '.', args[2], ".data.txt", sep=''))
+
+
 # create the roc object
-roc_objII <- roc(results_dfII$label_fact, results_dfII$predicted_prob)
+#roc_objII <- roc(results_dfII$label_fact, results_dfII$predicted_prob)
 
 # output results
-auc_summary <-vector("list", 1)
-auc_summary[[1]] <- c(ci(roc_objII))
-auc_df <- data.frame(auc_summary)
-colnames(auc_df) <- c('Only_I')
-rownames(auc_df) <- c('low_CI', 'AUC', 'high_CI')
-write.table(auc_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions.mhc_i.model_", args[3], ".", args[1], '.', args[2], ".txt", sep=''))
+#auc_summary <-vector("list", 1)
+#auc_summary[[1]] <- c(ci(roc_objII))
+#auc_df <- data.frame(auc_summary)
+#colnames(auc_df) <- c('Only_I')
+#rownames(auc_df) <- c('low_CI', 'AUC', 'high_CI')
+#write.table(auc_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions.mhc_i.model_", args[3], ".", args[1], '.', args[2], ".txt", sep=''))
 
 # Plot the ROCs
-pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/predictions/ROC.mhc_i.model_', args[3], '.threshold_', args[1], '.', args[2], '.pdf', sep=''))
-plot(roc_objII, col='blue')
-legend("bottomright",
-  legend = c("MHC-I"),
-      col=c('blue'),
-      lwd=c(2.5,2.5))
- dev.off()
+#pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/predictions/ROC.mhc_i.model_', args[3], '.threshold_', args[1], '.', args[2], '.pdf', sep=''))
+#plot(roc_objII, col='blue')
+#legend("bottomright",
+#  legend = c("MHC-I"),
+#      col=c('blue'),
+#      lwd=c(2.5,2.5))
+# dev.off()
