@@ -20,7 +20,7 @@ for population in population_dictionary_stripped.keys():
 
         patient_dictionary = {}
         for line in lines:
-            print line
+            #print line
             if line[0] in ['A', 'B', 'C']:
                 if line[1] == 'Not typed':
                     alleles = ['-', '-']
@@ -29,10 +29,14 @@ for population in population_dictionary_stripped.keys():
                     alleles = [line[0]+'_'+x.split('*')[1].split(':')[0]+x.split('*')[1].split(':')[1]]*2
                 else:
                     alleles = [line[0]+'_'+x.split('*')[1].split(':')[0]+x.split('*')[1].split(':')[1] for x in line[1:3]]
+                print
                 patient_dictionary[line[0]+'_allele1'] = alleles[0]
                 patient_dictionary[line[0]+'_allele2'] = alleles[1]
+
             else:
                 None
+
+        all_patient_dictionary[sample] = patient_dictionary
 
 
 df = pd.DataFrame(all_patient_dictionary).transpose()
