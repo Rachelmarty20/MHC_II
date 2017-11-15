@@ -20,6 +20,7 @@ for population in population_dictionary_stripped.keys():
 
         patient_dictionary = {}
         for line in lines:
+            print line
             if line[0] in ['A', 'B', 'C']:
                 if line[1] == 'Not typed':
                     alleles = ['-', '-']
