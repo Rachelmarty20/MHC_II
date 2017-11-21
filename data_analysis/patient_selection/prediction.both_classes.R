@@ -39,7 +39,7 @@ colnames(df)<-c('y', 'x', 'z', 'pat')
 
 
 
-# both MHC-I and MHC-II
+#  s(z, x)
 all_labels=NULL
 all_predictions=NULL
 # linear - PHBR
@@ -57,9 +57,9 @@ if (model == 0){
         # to train the model
         DataCV=df[-sample_rows, ]
         # train the model
-        M1 <- glmer(y ~ log(z) + log(x) + (1|pat), data=DataCV, family='binomial')
+        gam1= gam(y ~ s(z, x), data=DataCV, family='binomial')
         # predict mutation probabilities
-        P1=predict(M1, DataC1)
+        P1=predict(gam1, DataC1)
         names(P1)=NULL
         all_predictions= c(all_predictions, P1)
         all_labels = c(all_labels, DataC1$y)
@@ -67,7 +67,7 @@ if (model == 0){
 
 }
 
-# linear - log(PHBR)
+# s(log(z), x)
 if (model == 1){
     all_labels=NULL
     all_predictions=NULL
@@ -81,9 +81,9 @@ if (model == 1){
         # to train the model
         DataCV=df[-sample_rows, ]
         # train the model
-        M1 <- glmer(y ~ z + log(x) + (1|pat), data=DataCV, family='binomial')
+        gam1= gam(y ~ s(log(z), x), data=DataCV, family='binomial')
         # predict mutation probabilities
-        P1=predict(M1, DataC1)
+        P1=predict(gam1, DataC1)
         names(P1)=NULL
         all_predictions= c(all_predictions, P1)
         all_labels = c(all_labels, DataC1$y)
