@@ -29,7 +29,7 @@ if (model == 0){
     rownames(mut) <- rownames(aff) <- patient
 
     # Format data
-    y= as.vector(mut); x= as.vector(aff1)
+    y= as.vector(mut); x= as.vector(aff)
     gene= rep(colnames(mut),each=nrow(mut))
     pat= rep(rownames(mut),ncol(mut))
     nmut= colSums(mut)
