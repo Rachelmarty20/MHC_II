@@ -4,6 +4,7 @@ library(lme4)
 library(mgcv)
 library(xtable)
 library(pROC)
+library(oddsratio)
 
 PATH_TO_DATA = '/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/'
 
