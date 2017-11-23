@@ -153,7 +153,7 @@ if (model == 1){
 
     # train models
     tissuetypes <- c('MESO', 'BRCA', 'UCS', 'LUSC', 'GBM', 'READ', 'KICH', 'COAD', 'SKCM', 'STAD', 'THCA', 'PRAD', 'CESC', 'BLCA', 'UVM', 'ACC', 'LGG', 'UCEC', 'TGCT', 'OV', 'LAML', 'LUAD', 'LIHC', 'HNSC', 'PCPG', 'KIRP', 'DLBC', 'KIRC', 'PAAD')
-    OR <- CI_low <- CI_high <- predicted <- tissue <- vector("list",length(tissuetypes))
+    OR <- CI_low <- CI_high <- predicted <- tissue <- vector("list",length(tissuetypes)*2)
     for (i in 1:length(tissuetypes)) {
         cat("TISSUE",tissuetypes[i])
         #
