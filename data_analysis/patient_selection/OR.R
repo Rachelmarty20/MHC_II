@@ -130,15 +130,15 @@ if (model == 1){
 
     OR <- CI_low <- CI_high <- predicted <- tissue <- vector("list",2)
 
-    OR[[i]] <- results1[['oddsratio']]
-    CI_low[[i]] <- results1[['CI_low (2.5%)']]
-    CI_high[[i]] <- results1[['CI_high (97.5%)']]
-    predicted[[i]] <- results1[['predictor']]
+    OR[[1]] <- results1[['oddsratio']]
+    CI_low[[1]] <- results1[['CI_low (2.5%)']]
+    CI_high[[1]] <- results1[['CI_high (97.5%)']]
+    predicted[[1]] <- results1[['predictor']]
 
-    OR[[i]] <- results2[['oddsratio']]
-    CI_low[[i]] <- results2[['CI_low (2.5%)']]
-    CI_high[[i]] <- results2[['CI_high (97.5%)']]
-    predicted[[i]] <- results2[['predictor']]
+    OR[[2]] <- results2[['oddsratio']]
+    CI_low[[2]] <- results2[['CI_low (2.5%)']]
+    CI_high[[2]] <- results2[['CI_high (97.5%)']]
+    predicted[[2]] <- results2[['predictor']]
 
     # Format output
     cbind(cbind(cbind(OR, CI_low), CI_high), predicted)
@@ -176,11 +176,11 @@ if (model == 1){
         predicted[[i]] <- results1[['predictor']]
         tissue[[i]] <- tissuetypes[i]
 
-        OR[[i]] <- results2[['oddsratio']]
-        CI_low[[i]] <- results2[['CI_low (2.5%)']]
-        CI_high[[i]] <- results2[['CI_high (97.5%)']]
-        predicted[[i]] <- results2[['predictor']]
-        tissue[[i]] <- tissuetypes[i]
+        OR[[length(tissuetypes+i]] <- results2[['oddsratio']]
+        CI_low[[length(tissuetypes+i]] <- results2[['CI_low (2.5%)']]
+        CI_high[[length(tissuetypes+i]] <- results2[['CI_high (97.5%)']]
+        predicted[[length(tissuetypes+i]] <- results2[['predictor']]
+        tissue[[length(tissuetypes+i]] <- tissuetypes[i]
 
         cat("Done \n")
     }
