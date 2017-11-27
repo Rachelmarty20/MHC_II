@@ -128,6 +128,8 @@ if (model == 1){
     results1 = or_gam(data = df, model = gam, pred = c("x"), values=c(low_x, high_x))
     results2 = or_gam(data = df, model = gam, pred = c("z"), values=c(low_z, high_z))
 
+    OR <- CI_low <- CI_high <- predicted <- tissue <- vector("list",2)
+
     OR[[i]] <- results1[['oddsratio']]
     CI_low[[i]] <- results1[['CI_low (2.5%)']]
     CI_high[[i]] <- results1[['CI_high (97.5%)']]
