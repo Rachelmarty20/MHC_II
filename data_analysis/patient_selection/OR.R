@@ -141,7 +141,7 @@ if (model == 1){
     predicted[[2]] <- results2[['predictor']]
 
     # Format output
-    cbind(cbind(cbind(OR, CI_low), CI_high), predicted)
+    results = cbind(cbind(cbind(OR, CI_low), CI_high), predicted)
     write.table(results, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/OR/Both.pan.thresh_", mutation_threshold, ".", name, ".txt", sep=''))
 
 
@@ -166,8 +166,8 @@ if (model == 1){
         colnames(df)<-c('y', 'x', 'pat')
 
         gam = gam(y ~ s(x), data=df, family='binomial')
-        low_x = quantile(x, 0.25, names=FALSE)
-        high_x = quantile(x, 0.75, names=FALSE)
+        low_x = quantile(df[['x']], 0.25, names=FALSE)
+        high_x = quantile(df[['x']], 0.75, names=FALSE)
         results1 = or_gam(data = df, model = gam, pred = c("x"), values=c(low_x, high_x))
 
         OR[[i]] <- results1[['oddsratio']]
