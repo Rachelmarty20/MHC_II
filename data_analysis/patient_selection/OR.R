@@ -47,8 +47,8 @@ if (model == 0){
 
         # Train model
         gam = gam(y ~ s(x), data=df, family='binomial')
-        low_x = quantile(x, 0.25, names=FALSE)
-        high_x = quantile(x, 0.75, names=FALSE)
+        low_x = quantile(df[['x']], 0.25, names=FALSE)
+        high_x = quantile(df[['x']], 0.75, names=FALSE)
         results = or_gam(data = df, model = gam, pred = c("x"), values=c(low_x, high_x))
 
         # Format output
@@ -77,8 +77,8 @@ if (model == 0){
             colnames(df)<-c('y', 'x', 'pat')
 
             gam = gam(y ~ s(x), data=df, family='binomial')
-            low_x = quantile(x, 0.25, names=FALSE)
-            high_x = quantile(x, 0.75, names=FALSE)
+            low_x = quantile(df[['x']], 0.25, names=FALSE)
+            high_x = quantile(df[['x']], 0.75, names=FALSE)
             results = or_gam(data = df, model = gam, pred = c("x"), values=c(low_x, high_x))
             OR[[i]] <- results[['oddsratio']]
             CI_low[[i]] <- results[['CI_low (2.5%)']]
@@ -125,10 +125,10 @@ if (model == 1){
 
         # Train model
         gam = gam(y ~ s(x, z), data=df, family='binomial')
-        low_x = quantile(x, 0.25, names=FALSE)
-        high_x = quantile(x, 0.75, names=FALSE)
-        low_z = quantile(z, 0.25, names=FALSE)
-        high_z = quantile(z, 0.75, names=FALSE)
+        low_x = quantile(df[['x']], 0.25, names=FALSE)
+        high_x = quantile(df[['x']], 0.75, names=FALSE)
+        low_z = quantile(df[['z']], 0.25, names=FALSE)
+        high_z = quantile(df[['z']], 0.75, names=FALSE)
         results1 = or_gam(data = df, model = gam, pred = c("x"), values=c(low_x, high_x))
         results2 = or_gam(data = df, model = gam, pred = c("z"), values=c(low_z, high_z))
 
@@ -152,7 +152,7 @@ if (model == 1){
     if (pan == 0){
         ## Tissue-specific ##
         # Make dataframe
-        y= as.vector(mut); x= as.vector(aff)
+        y= as.vector(mut); x= as.vector(aff1);  z= as.vector(aff2)
         gene= rep(colnames(mut),each=nrow(mut))
         pat= rep(rownames(mut),ncol(mut))
         nmut= colSums(mut)
@@ -167,13 +167,16 @@ if (model == 1){
             patsel= pat %in% as.character(tissue$Sample[tissue$Tissue==tissuetypes[i]])
             sel= genesel & patsel
 
-            df = data.frame(y[sel&patsel], x[sel&patsel], pat[sel&patsel])
-            colnames(df)<-c('y', 'x', 'pat')
+            df = data.frame(y[sel], x[sel], z[sel], pat[sel])
+            colnames(df)<-c('y', 'x', 'z', 'pat')
 
             gam = gam(y ~ s(x), data=df, family='binomial')
             low_x = quantile(df[['x']], 0.25, names=FALSE)
             high_x = quantile(df[['x']], 0.75, names=FALSE)
+            low_z = quantile(df[['z']], 0.25, names=FALSE)
+            high_z = quantile(df[['z']], 0.75, names=FALSE)
             results1 = or_gam(data = df, model = gam, pred = c("x"), values=c(low_x, high_x))
+            results2 = or_gam(data = df, model = gam, pred = c("z"), values=c(low_z, high_z))
 
             OR[[i]] <- results1[['oddsratio']]
             CI_low[[i]] <- results1[['CI_low (2.5%)']]
