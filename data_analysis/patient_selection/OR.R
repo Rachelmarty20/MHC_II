@@ -176,11 +176,11 @@ if (model == 1){
         predicted[[i]] <- results1[['predictor']]
         tissue[[i]] <- tissuetypes[i]
 
-        OR[[length(tissuetypes+i]] <- results2[['oddsratio']]
-        CI_low[[length(tissuetypes+i]] <- results2[['CI_low (2.5%)']]
-        CI_high[[length(tissuetypes+i]] <- results2[['CI_high (97.5%)']]
-        predicted[[length(tissuetypes+i]] <- results2[['predictor']]
-        tissue[[length(tissuetypes+i]] <- tissuetypes[i]
+        OR[[length(tissuetypes)+i]] <- results2[['oddsratio']]
+        CI_low[[length(tissuetypes)+i]] <- results2[['CI_low (2.5%)']]
+        CI_high[[length(tissuetypes)+i]] <- results2[['CI_high (97.5%)']]
+        predicted[[length(tissuetypes)+i]] <- results2[['predictor']]
+        tissue[[length(tissuetypes)+i]] <- tissuetypes[i]
 
         cat("Done \n")
     }
