@@ -163,9 +163,10 @@ if (model == 1){
         tissuetypes <- c('MESO', 'BRCA', 'UCS', 'LUSC', 'GBM', 'READ', 'KICH', 'COAD', 'SKCM', 'STAD', 'THCA', 'PRAD', 'CESC', 'BLCA', 'UVM', 'ACC', 'LGG', 'UCEC', 'TGCT', 'OV', 'LAML', 'LUAD', 'LIHC', 'HNSC', 'PCPG', 'KIRP', 'DLBC', 'KIRC', 'PAAD')
         OR <- CI_low <- CI_high <- predicted <- tissue <- vector("list",length(tissuetypes)*2)
         for (i in 1:length(tissuetypes)) {
-            cat("TISSUE",tissuetypes[i])
+            cat("TISSUE",tissuetypes[i],"\n")
             #
             patsel= pat %in% as.character(tissue$Sample[tissue$Tissue==tissuetypes[i]])
+            cat(sum(y[patsel]), "\n")
             if (sum(y[patsel]) > 100){
 
                 sel= genesel & patsel
