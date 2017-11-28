@@ -164,7 +164,7 @@ if (model == 1){
 
         # train models
         tissuetypes <- c('BRCA', 'LUSC', 'GBM', 'READ', 'COAD', 'SKCM', 'STAD', 'THCA', 'PRAD', 'BLCA', 'LGG', 'UCEC', 'OV', 'LUAD', 'LIHC', 'HNSC', 'PAAD')
-        OR <- CI_low <- CI_high <- predicted <- tissue <- vector("list",length(tissuetypes)*2)
+        OR <- CI_low <- CI_high <- predicted <- tissues <- vector("list",length(tissuetypes)*2)
         for (i in 1:length(tissuetypes)) {
             cat("TISSUE",tissuetypes[i],"\n")
             #
@@ -188,13 +188,13 @@ if (model == 1){
             CI_low[[i]] <- results1[['CI_low (2.5%)']]
             CI_high[[i]] <- results1[['CI_high (97.5%)']]
             predicted[[i]] <- results1[['predictor']]
-            tissue[[i]] <- tissuetypes[i]
+            tissues[[i]] <- tissuetypes[i]
 
             OR[[length(tissuetypes)+i]] <- results2[['oddsratio']]
             CI_low[[length(tissuetypes)+i]] <- results2[['CI_low (2.5%)']]
             CI_high[[length(tissuetypes)+i]] <- results2[['CI_high (97.5%)']]
             predicted[[length(tissuetypes)+i]] <- results2[['predictor']]
-            tissue[[length(tissuetypes)+i]] <- tissuetypes[i]
+            tissues[[length(tissuetypes)+i]] <- tissuetypes[i]
 
             cat("Done \n")
 
