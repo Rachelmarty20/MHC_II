@@ -16,8 +16,9 @@ mut_file = args[4]
 aff1_file = args[5]
 aff2_file = args[6]
 name = args[7]
-pan = args[8]
+pan = as.integer(args[8])
 
+print(paste(name, mutation_threshold, model, pan))
 
 ### Model with MHC-II ###
 if (model == 0){
@@ -65,7 +66,9 @@ if (model == 0){
         genesel= (gene %in% names(nmut[nmut>=mutation_threshold]))
 
         # train models
-        tissuetypes <- c('MESO', 'BRCA', 'UCS', 'LUSC', 'GBM', 'READ', 'KICH', 'COAD', 'SKCM', 'STAD', 'THCA', 'PRAD', 'CESC', 'BLCA', 'UVM', 'ACC', 'LGG', 'UCEC', 'TGCT', 'OV', 'LAML', 'LUAD', 'LIHC', 'HNSC', 'PCPG', 'KIRP', 'DLBC', 'KIRC', 'PAAD')
+        #tissuetypes <- c('MESO', 'BRCA', 'UCS', 'LUSC', 'GBM', 'READ', 'KICH', 'COAD', 'SKCM', 'STAD', 'THCA', 'PRAD', 'CESC', 'BLCA', 'UVM', 'ACC', 'LGG', 'UCEC', 'TGCT', 'OV', 'LAML', 'LUAD', 'LIHC', 'HNSC', 'PCPG', 'KIRP', 'DLBC', 'KIRC', 'PAAD')
+        tissuetypes <- c('BRCA', 'LUSC', 'GBM', 'READ', 'COAD', 'SKCM', 'STAD', 'THCA', 'PRAD', 'BLCA', 'LGG', 'UCEC', 'OV', 'LUAD', 'LIHC', 'HNSC', 'PAAD')
+
         OR <- CI_low <- CI_high <- predicted <- vector("list",length(tissuetypes))
         for (i in 1:length(tissuetypes)) {
             cat("TISSUE",tissuetypes[i])
@@ -160,58 +163,41 @@ if (model == 1){
         genesel= (gene %in% names(nmut[nmut>=mutation_threshold]))
 
         # train models
-        tissuetypes <- c('MESO', 'BRCA', 'UCS', 'LUSC', 'GBM', 'READ', 'KICH', 'COAD', 'SKCM', 'STAD', 'THCA', 'PRAD', 'CESC', 'BLCA', 'UVM', 'ACC', 'LGG', 'UCEC', 'TGCT', 'OV', 'LAML', 'LUAD', 'LIHC', 'HNSC', 'PCPG', 'KIRP', 'DLBC', 'KIRC', 'PAAD')
+        tissuetypes <- c('BRCA', 'LUSC', 'GBM', 'READ', 'COAD', 'SKCM', 'STAD', 'THCA', 'PRAD', 'BLCA', 'LGG', 'UCEC', 'OV', 'LUAD', 'LIHC', 'HNSC', 'PAAD')
         OR <- CI_low <- CI_high <- predicted <- tissue <- vector("list",length(tissuetypes)*2)
         for (i in 1:length(tissuetypes)) {
             cat("TISSUE",tissuetypes[i],"\n")
             #
             patsel= pat %in% as.character(tissue$Sample[tissue$Tissue==tissuetypes[i]])
             cat(sum(y[patsel]), "\n")
-            if (sum(y[patsel]) > 100){
 
-                sel= genesel & patsel
+            sel= genesel & patsel
 
-                df = data.frame(y[sel], x[sel], z[sel], pat[sel])
-                colnames(df)<-c('y', 'x', 'z', 'pat')
+            df = data.frame(y[sel], x[sel], z[sel], pat[sel])
+            colnames(df)<-c('y', 'x', 'z', 'pat')
 
-                gam = gam(y ~ s(x), data=df, family='binomial')
-                low_x = quantile(df[['x']], 0.25, names=FALSE)
-                high_x = quantile(df[['x']], 0.75, names=FALSE)
-                low_z = quantile(df[['z']], 0.25, names=FALSE)
-                high_z = quantile(df[['z']], 0.75, names=FALSE)
-                results1 = or_gam(data = df, model = gam, pred = c("x"), values=c(low_x, high_x))
-                results2 = or_gam(data = df, model = gam, pred = c("z"), values=c(low_z, high_z))
+            gam = gam(y ~ s(x), data=df, family='binomial')
+            low_x = quantile(df[['x']], 0.25, names=FALSE)
+            high_x = quantile(df[['x']], 0.75, names=FALSE)
+            low_z = quantile(df[['z']], 0.25, names=FALSE)
+            high_z = quantile(df[['z']], 0.75, names=FALSE)
+            results1 = or_gam(data = df, model = gam, pred = c("x"), values=c(low_x, high_x))
+            results2 = or_gam(data = df, model = gam, pred = c("z"), values=c(low_z, high_z))
 
-                OR[[i]] <- results1[['oddsratio']]
-                CI_low[[i]] <- results1[['CI_low (2.5%)']]
-                CI_high[[i]] <- results1[['CI_high (97.5%)']]
-                predicted[[i]] <- results1[['predictor']]
-                tissue[[i]] <- tissuetypes[i]
+            OR[[i]] <- results1[['oddsratio']]
+            CI_low[[i]] <- results1[['CI_low (2.5%)']]
+            CI_high[[i]] <- results1[['CI_high (97.5%)']]
+            predicted[[i]] <- results1[['predictor']]
+            tissue[[i]] <- tissuetypes[i]
 
-                OR[[length(tissuetypes)+i]] <- results2[['oddsratio']]
-                CI_low[[length(tissuetypes)+i]] <- results2[['CI_low (2.5%)']]
-                CI_high[[length(tissuetypes)+i]] <- results2[['CI_high (97.5%)']]
-                predicted[[length(tissuetypes)+i]] <- results2[['predictor']]
-                tissue[[length(tissuetypes)+i]] <- tissuetypes[i]
+            OR[[length(tissuetypes)+i]] <- results2[['oddsratio']]
+            CI_low[[length(tissuetypes)+i]] <- results2[['CI_low (2.5%)']]
+            CI_high[[length(tissuetypes)+i]] <- results2[['CI_high (97.5%)']]
+            predicted[[length(tissuetypes)+i]] <- results2[['predictor']]
+            tissue[[length(tissuetypes)+i]] <- tissuetypes[i]
 
-                cat("Done \n")
-            }
+            cat("Done \n")
 
-            else {
-
-                OR[[i]] <- '-'
-                CI_low[[i]] <- '-'
-                CI_high[[i]] <- '-'
-                predicted[[i]] <- '-'
-                tissue[[i]] <- tissuetypes[i]
-
-                OR[[length(tissuetypes)+i]] <- '-'
-                CI_low[[length(tissuetypes)+i]] <- '-'
-                CI_high[[length(tissuetypes)+i]] <- '-'
-                predicted[[length(tissuetypes)+i]] <- '-'
-                tissue[[length(tissuetypes)+i]] <- tissuetypes[i]
-
-            }
         }
 
         # Format output
