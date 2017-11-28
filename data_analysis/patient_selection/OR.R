@@ -201,7 +201,7 @@ if (model == 1){
         }
 
         # Format output
-        results = cbind(cbind(cbind(cbind(OR, CI_low), CI_high), predicted), tissue)
+        results = cbind(cbind(cbind(cbind(OR, CI_low), CI_high), predicted), tissues)
         write.table(results, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/OR/Both.tissue.thresh_", mutation_threshold, ".", name, ".txt", sep=''))
     }
 }
