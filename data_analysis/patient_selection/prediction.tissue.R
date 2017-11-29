@@ -46,7 +46,7 @@ for (i in 1:10)
     # to train the model
     DataCV=df[-sample_rows, ]
     # train the model
-    gam1= gam(y ~ s(z, x), data=DataCV, family='binomial')
+    gam1= gam(y ~ s(x), data=DataCV, family='binomial')
     # predict mutation probabilities
     P1=predict(gam1, DataC1)
     names(P1)=NULL
@@ -73,7 +73,7 @@ for (i in 1:10)
     # to train the model
     DataCV=df[-sample_rows, ]
     # train the model
-    gam1= gam(y ~ s(z, x), data=DataCV, family='binomial')
+    gam1= gam(y ~ s(z), data=DataCV, family='binomial')
     # predict mutation probabilities
     P1=predict(gam1, DataC1)
     names(P1)=NULL
