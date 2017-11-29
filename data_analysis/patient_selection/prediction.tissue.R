@@ -26,7 +26,7 @@ gene= rep(colnames(mut),each=nrow(mut))
 pat= rep(rownames(mut),ncol(mut))
 nmut= colSums(mut)
 genesel= gene %in% names(nmut[nmut>=mutation_threshold])
-patsel= pat %in% as.character(tissue$Sample[tissue$Tissue==tissuetypes[i]])
+patsel= pat %in% as.character(tissue$Sample[tissue$Tissue==tissue_type])
 
 sel= genesel & patsel
 df = data.frame(y[sel], x[sel], z[sel], pat[sel])
