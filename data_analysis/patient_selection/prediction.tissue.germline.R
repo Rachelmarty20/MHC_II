@@ -36,7 +36,7 @@ colnames(df)<-c('y', 'x', 'z', 'pat')
 #  MHC-I
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:50)
+for (i in 1:10)
 {
     print(i)
     # sample indices
@@ -63,7 +63,7 @@ write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generate
 #  MHC-II
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:50)
+for (i in 1:10)
 {
     print(i)
     # sample indices
@@ -90,7 +90,7 @@ write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generate
 #  Both
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:50)
+for (i in 1:10)
 {
     print(i)
     # sample indices
