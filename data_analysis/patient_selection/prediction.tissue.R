@@ -21,10 +21,17 @@ aff1 <- as.matrix(aff1[,-1])
 aff2 <- as.matrix(aff2[,-1])
 rownames(mut) <- rownames(aff1) <- rownames(aff2) <- patient
 
+# These are added for the meaning change
+tissue_patients = as.vector(tissue$Sample[tissue$Tissue==tissue_type])
+tissue_mut = mut[tissue_patients,]
+
+
 y= as.vector(mut); x= as.vector(aff1); z= as.vector(aff2)
 gene= rep(colnames(mut),each=nrow(mut))
 pat= rep(rownames(mut),ncol(mut))
-nmut= colSums(mut)
+# Changing this line changes the whole meaning!!!
+
+nmut= colSums(tissue_mut)
 genesel= gene %in% names(nmut[nmut>=mutation_threshold])
 patsel= pat %in% as.character(tissue$Sample[tissue$Tissue==tissue_type])
 
@@ -57,7 +64,7 @@ results_df = data.frame(all_labels, all_predictions)
 colnames(results_df)<-c('label', 'predicted')
 results_df$predicted_prob<-exp(results_df$predicted)
 results_df$label_fact <- factor(results_df$label)
-write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues/predictions.", tissue_type, ".MHC_I.", mutation_threshold, ".data.txt", sep=''))
+write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues/predictions.muts_in_", tissue_type, ".MHC_I.", mutation_threshold, ".data.txt", sep=''))
 
 
 #  MHC-II
@@ -84,7 +91,7 @@ results_df = data.frame(all_labels, all_predictions)
 colnames(results_df)<-c('label', 'predicted')
 results_df$predicted_prob<-exp(results_df$predicted)
 results_df$label_fact <- factor(results_df$label)
-write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues/predictions.", tissue_type, ".MHC_II.", mutation_threshold, ".data.txt", sep=''))
+write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues/predictions.muts_in_", tissue_type, ".MHC_II.", mutation_threshold, ".data.txt", sep=''))
 
 
 #  Both
@@ -111,5 +118,5 @@ results_df = data.frame(all_labels, all_predictions)
 colnames(results_df)<-c('label', 'predicted')
 results_df$predicted_prob<-exp(results_df$predicted)
 results_df$label_fact <- factor(results_df$label)
-write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues/predictions.", tissue_type, ".Both.", mutation_threshold, ".data.txt", sep=''))
+write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues/predictions.muts_in_", tissue_type, ".Both.", mutation_threshold, ".data.txt", sep=''))
 
