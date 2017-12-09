@@ -21,10 +21,13 @@ aff1 <- as.matrix(aff1[,-1])
 aff2 <- as.matrix(aff2[,-1])
 rownames(mut) <- rownames(aff1) <- rownames(aff2) <- patient
 
+# Subsetting tissue df to match mut df
+patients = as.vector(row.names(mut))
+tissue = subset(tissue, Sample %in% patients)
+
 # These are added for the meaning change
 tissue_patients = as.vector(tissue$Sample[tissue$Tissue==tissue_type])
 tissue_mut = mut[tissue_patients,]
-
 
 y= as.vector(mut); x= as.vector(aff1); z= as.vector(aff2)
 gene= rep(colnames(mut),each=nrow(mut))
