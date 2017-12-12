@@ -68,7 +68,7 @@ results_df = data.frame(all_labels, all_predictions)
 colnames(results_df)<-c('label', 'predicted')
 results_df$predicted_prob<-exp(results_df$predicted)
 results_df$label_fact <- factor(results_df$label)
-write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues/predictions.muts_in_", tissue_type, ".MHC_I.", mutation_threshold, ".data.txt", sep=''))
+write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues/predictions.muts_in_", tissue_type, ".MHC_I.", mutation_threshold, ".data.shuffled.txt", sep=''))
 
 
 #  MHC-II
@@ -95,7 +95,7 @@ results_df = data.frame(all_labels, all_predictions)
 colnames(results_df)<-c('label', 'predicted')
 results_df$predicted_prob<-exp(results_df$predicted)
 results_df$label_fact <- factor(results_df$label)
-write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues/predictions.muts_in_", tissue_type, ".MHC_II.", mutation_threshold, ".data.txt", sep=''))
+write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues/predictions.muts_in_", tissue_type, ".MHC_II.", mutation_threshold, ".data.shuffled.txt", sep=''))
 
 
 #  Both
@@ -122,5 +122,5 @@ results_df = data.frame(all_labels, all_predictions)
 colnames(results_df)<-c('label', 'predicted')
 results_df$predicted_prob<-exp(results_df$predicted)
 results_df$label_fact <- factor(results_df$label)
-write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues/predictions.muts_in_", tissue_type, ".Both.", mutation_threshold, ".data.txt", sep=''))
+write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/tissues/predictions.muts_in_", tissue_type, ".Both.", mutation_threshold, ".data.shuffled.txt", sep=''))
 
