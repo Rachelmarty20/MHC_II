@@ -21,6 +21,9 @@ aff1 <- as.matrix(aff1[,-1])
 aff2 <- as.matrix(aff2[,-1])
 rownames(mut) <- rownames(aff1) <- rownames(aff2) <- patient
 
+# shuffle rows
+mut <- mut[sample(nrow(mut)),]
+
 # Subsetting tissue df to match mut df
 patients = as.vector(row.names(mut))
 tissue = subset(tissue, Sample %in% patients)
@@ -28,6 +31,8 @@ tissue = subset(tissue, Sample %in% patients)
 # These are added for the meaning change
 tissue_patients = as.vector(tissue$Sample[tissue$Tissue==tissue_type])
 tissue_mut = mut[tissue_patients,]
+df2 <- transform( df1, C = sample(C) )
+
 
 y= as.vector(mut); x= as.vector(aff1); z= as.vector(aff2)
 gene= rep(colnames(mut),each=nrow(mut))
@@ -39,8 +44,7 @@ genesel= gene %in% names(nmut[nmut>=mutation_threshold])
 patsel= pat %in% as.character(tissue$Sample[tissue$Tissue==tissue_type])
 
 sel= genesel & patsel
-# randomly shuffling
-df = data.frame(sample(y[sel]), x[sel], z[sel], pat[sel])
+df = data.frame(y[sel], x[sel], z[sel], pat[sel])
 colnames(df)<-c('y', 'x', 'z', 'pat')
 print(length(df))
 
