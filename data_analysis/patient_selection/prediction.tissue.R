@@ -39,7 +39,8 @@ genesel= gene %in% names(nmut[nmut>=mutation_threshold])
 patsel= pat %in% as.character(tissue$Sample[tissue$Tissue==tissue_type])
 
 sel= genesel & patsel
-df = data.frame(y[sel], x[sel], z[sel], pat[sel])
+# randomly shuffling
+df = data.frame(y[sel], sample(x[sel]), z[sel], pat[sel])
 colnames(df)<-c('y', 'x', 'z', 'pat')
 
 
