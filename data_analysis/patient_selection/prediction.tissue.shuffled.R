@@ -31,8 +31,6 @@ tissue = subset(tissue, Sample %in% patients)
 # These are added for the meaning change
 tissue_patients = as.vector(tissue$Sample[tissue$Tissue==tissue_type])
 tissue_mut = mut[tissue_patients,]
-df2 <- transform( df1, C = sample(C) )
-
 
 y= as.vector(mut); x= as.vector(aff1); z= as.vector(aff2)
 gene= rep(colnames(mut),each=nrow(mut))
