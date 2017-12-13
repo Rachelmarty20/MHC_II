@@ -3,14 +3,17 @@ import cPickle as pickle
 import sys
 
 
-def main(category, population):
+def main(category, population, condition):
 
     if population == 'TCGA':
         patient_dictionary = pickle.load(open('/cellar/users/ramarty/Data/hla_ii/hla_types/TCGA.HLA_classII.p'))
     else:
         patient_dictionary = pickle.load(open('/cellar/users/ramarty/Data/hla_ii/hla_types/Alternate.HLA_classII.p'))
 
-    df = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/allele_matrices/{0}.csv'.format(category), index_col=0)
+    if condition == 'mut':
+        df = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/allele_matrices/{0}.csv'.format(category), index_col=0)
+    else:
+        df = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/allele_matrices/{0}.wt.csv'.format(category), index_col=0)
     patients_used = []
     for patient in patient_dictionary.keys():
         patient_alleles = []
@@ -24,7 +27,10 @@ def main(category, population):
             print patient
     df.index = df['mutation']
     if population == 'TCGA':
-        df[patients_used].to_csv('/cellar/users/ramarty/Data/hla_ii/presentation/patient_matrices/{0}.all.csv'.format(category))
+        if condition == 'mut':
+            df[patients_used].to_csv('/cellar/users/ramarty/Data/hla_ii/presentation/patient_matrices/{0}.all.csv'.format(category))
+        else:
+            df[patients_used].to_csv('/cellar/users/ramarty/Data/hla_ii/presentation/patient_matrices/{0}.all.wt.csv'.format(category))
     else:
         df[patients_used].to_csv('/cellar/users/ramarty/Data/hla_ii/presentation/patient_matrices/{0}.all.alternate.csv'.format(category))
 
@@ -39,8 +45,8 @@ def PHBR(x):
 ###########################################  Main Method  #####################################
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 4:
         print 'Wrong number of arguments.'
         sys.exit()
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], sys.argv[2], sys.argv[3])
     sys.exit()
