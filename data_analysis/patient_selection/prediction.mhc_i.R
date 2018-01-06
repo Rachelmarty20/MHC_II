@@ -36,6 +36,7 @@ df = data.frame(y[sel&sel_pat], z[sel&sel_pat], pat[sel&sel_pat])
 colnames(df)<-c('y', 'z', 'pat')
 # randomize order for CV
 df <- df[sample(1:nrow(df)), ]
+split = round(dim(df)[1] / 10)
 
 # linear - PHBR
 if (model == 0){
