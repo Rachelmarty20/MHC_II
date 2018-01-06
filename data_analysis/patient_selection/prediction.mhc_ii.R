@@ -34,6 +34,8 @@ sel_pat = pat %in% sampled_pats
 
 df = data.frame(y[sel&sel_pat], z[sel&sel_pat], pat[sel&sel_pat])
 colnames(df)<-c('y', 'z', 'pat')
+# randomize order for CV
+df <- df[sample(1:nrow(df)), ]
 
 # linear - PHBR
 if (model == 0){
