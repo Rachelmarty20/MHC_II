@@ -36,7 +36,8 @@ sel_pat = pat %in% sampled_pats
 
 df = data.frame(y[sel&sel_pat], x[sel&sel_pat], z[sel&sel_pat], pat[sel&sel_pat])
 colnames(df)<-c('y', 'x', 'z', 'pat')
-
+# randomize order for CV
+df <- df[sample(1:nrow(df)), ]
 
 
 #  s(z, x)
@@ -47,11 +48,10 @@ if (model == 0){
     # only MHC-II
     all_labels=NULL
     all_predictions=NULL
-    for (i in 1:iterations)
+    for (i in 1:10)
     {
-        print(i)
         # sample indices
-        sample_rows = sample(nrow(df), round(nrow(df)/10))
+        sample_rows = seq((i-1)*split+1, (i)*split)
         # to test the model
         DataC1=df[sample_rows, ]
         # to train the model
@@ -71,11 +71,10 @@ if (model == 0){
 if (model == 1){
     all_labels=NULL
     all_predictions=NULL
-    for (i in 1:iterations)
+    for (i in 1:10)
     {
-        print(i)
         # sample indices
-        sample_rows = sample(nrow(df), round(nrow(df)/10))
+        sample_rows = seq((i-1)*split+1, (i)*split)
         # to test the model
         DataC1=df[sample_rows, ]
         # to train the model
@@ -94,11 +93,10 @@ if (model == 1){
 if (model == 2){
     all_labels=NULL
     all_predictions=NULL
-    for (i in 1:iterations)
+    for (i in 1:10)
     {
-        print(i)
         # sample indices
-        sample_rows = sample(nrow(df), round(nrow(df)/10))
+        sample_rows = seq((i-1)*split+1, (i)*split)
         # to test the model
         DataC1=df[sample_rows, ]
         # to train the model
@@ -118,11 +116,10 @@ if (model == 2){
 if (model == 3){
     all_labels=NULL
     all_predictions=NULL
-    for (i in 1:iterations)
+    for (i in 1:10)
     {
-        print(i)
         # sample indices
-        sample_rows = sample(nrow(df), round(nrow(df)/10))
+        sample_rows = seq((i-1)*split+1, (i)*split)
         # to test the model
         DataC1=df[sample_rows, ]
         # to train the model
@@ -146,25 +143,3 @@ results_dfII$predicted_prob<-exp(results_dfII$predicted)
 results_dfII$label_fact <- factor(results_dfII$label)
 
 write.table(results_dfII, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions.both_classes.model_", args[3], ".", args[1], '.', args[2], ".data.txt", sep=''))
-# TODO: this is where we would output!!
-
-
-# create the roc object
-#roc_objII <- roc(results_dfII$label_fact, results_dfII$predicted_prob)
-
-# output results
-#auc_summary <-vector("list", 1)
-#auc_summary[[1]] <- c(ci(roc_objII))
-#auc_df <- data.frame(auc_summary)
-#colnames(auc_df) <- c('Both')
-#rownames(auc_df) <- c('low_CI', 'AUC', 'high_CI')
-#write.table(auc_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions.both_classes.model_", args[3], ".", args[1], '.', args[2], ".txt", sep=''))
-
-# Plot the ROCs
-#pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/predictions/ROC.both_classes.model_', args[3], '.threshold_', args[1], '.', args[2], '.pdf', sep=''))
-#plot(roc_objII, col='blue')
-#legend("bottomright",
-#  legend = c("MHC-I and MHC-II"),
-#      col=c('blue'),
-#      lwd=c(2.5,2.5))
-# dev.off()
