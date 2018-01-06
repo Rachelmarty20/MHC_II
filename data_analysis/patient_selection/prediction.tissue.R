@@ -43,6 +43,7 @@ df = data.frame(y[sel], x[sel], z[sel], pat[sel])
 colnames(df)<-c('y', 'x', 'z', 'pat')
 # randomize order for CV
 df <- df[sample(1:nrow(df)), ]
+split = round(dim(df)[1] / 10)
 print(dim(df))
 
 #  MHC-I

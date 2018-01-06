@@ -38,7 +38,7 @@ df = data.frame(y[sel&sel_pat], x[sel&sel_pat], z[sel&sel_pat], pat[sel&sel_pat]
 colnames(df)<-c('y', 'x', 'z', 'pat')
 # randomize order for CV
 df <- df[sample(1:nrow(df)), ]
-
+split = round(dim(df)[1] / 10)
 
 #  s(z, x)
 all_labels=NULL
