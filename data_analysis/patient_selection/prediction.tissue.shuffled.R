@@ -21,9 +21,6 @@ aff1 <- as.matrix(aff1[,-1])
 aff2 <- as.matrix(aff2[,-1])
 rownames(mut) <- rownames(aff1) <- rownames(aff2) <- patient
 
-# shuffle rows
-mut <- mut[sample(nrow(mut)),]
-
 # Subsetting tissue df to match mut df
 patients = as.vector(row.names(mut))
 tissue = subset(tissue, Sample %in% patients)
@@ -42,19 +39,23 @@ genesel= gene %in% names(nmut[nmut>=mutation_threshold])
 patsel= pat %in% as.character(tissue$Sample[tissue$Tissue==tissue_type])
 
 sel= genesel & patsel
-df = data.frame(y[sel], x[sel], z[sel], pat[sel])
+df = data.frame(y[sel], x[sel], z[sel], sample(pat[sel]))
 colnames(df)<-c('y', 'x', 'z', 'pat')
-print(length(df))
+# randomize patients
+df <- transform( df, pat = sample(pat) )
 
+# randomize order for CV
+df <- df[sample(1:nrow(df)), ]
+split = round(dim(df)[1] / 10)
+print(dim(df))
 
 #  MHC-I
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:50)
+for (i in 1:10)
 {
-    print(i)
     # sample indices
-    sample_rows = sample(nrow(df), round(nrow(df)/10))
+    sample_rows = seq((i-1)*split+1, (i)*split)
     # to test the model
     DataC1=df[sample_rows, ]
     # to train the model
@@ -77,11 +78,10 @@ write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generate
 #  MHC-II
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:50)
+for (i in 1:10)
 {
-    print(i)
     # sample indices
-    sample_rows = sample(nrow(df), round(nrow(df)/10))
+    sample_rows = seq((i-1)*split+1, (i)*split)
     # to test the model
     DataC1=df[sample_rows, ]
     # to train the model
@@ -104,11 +104,10 @@ write.table(results_df, file = paste("/cellar/users/ramarty/Data/hla_ii/generate
 #  Both
 all_labels=NULL
 all_predictions=NULL
-for (i in 1:50)
+for (i in 1:10)
 {
-    print(i)
     # sample indices
-    sample_rows = sample(nrow(df), round(nrow(df)/10))
+    sample_rows = seq((i-1)*split+1, (i)*split)
     # to test the model
     DataC1=df[sample_rows, ]
     # to train the model
