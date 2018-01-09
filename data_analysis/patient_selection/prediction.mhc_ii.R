@@ -43,11 +43,10 @@ if (model == 0){
     # only MHC-II
     all_labels=NULL
     all_predictions=NULL
-    for (i in 1:iterations)
+    for (i in 1:10)
     {
-        print(i)
         # sample indices
-        sample_rows = sample(nrow(df), round(nrow(df)/10))
+        sample_rows = seq((i-1)*split+1, (i)*split)
         # to test the model
         DataC1=df[sample_rows, ]
         # to train the model
@@ -67,11 +66,10 @@ if (model == 0){
 if (model == 1){
     all_labels=NULL
     all_predictions=NULL
-    for (i in 1:iterations)
+    for (i in 1:10)
     {
-        print(i)
         # sample indices
-        sample_rows = sample(nrow(df), round(nrow(df)/10))
+        sample_rows = seq((i-1)*split+1, (i)*split)
         # to test the model
         DataC1=df[sample_rows, ]
         # to train the model
@@ -90,11 +88,10 @@ if (model == 1){
 if (model == 2){
     all_labels=NULL
     all_predictions=NULL
-    for (i in 1:iterations)
+    for (i in 1:10)
     {
-        print(i)
         # sample indices
-        sample_rows = sample(nrow(df), round(nrow(df)/10))
+        sample_rows = seq((i-1)*split+1, (i)*split)
         # to test the model
         DataC1=df[sample_rows, ]
         # to train the model
@@ -114,11 +111,10 @@ if (model == 2){
 if (model == 3){
     all_labels=NULL
     all_predictions=NULL
-    for (i in 1:iterations)
+    for (i in 1:10)
     {
-        print(i)
         # sample indices
-        sample_rows = sample(nrow(df), round(nrow(df)/10))
+        sample_rows = seq((i-1)*split+1, (i)*split)
         # to test the model
         DataC1=df[sample_rows, ]
         # to train the model
