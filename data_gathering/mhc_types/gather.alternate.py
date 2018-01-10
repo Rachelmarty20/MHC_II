@@ -1,6 +1,7 @@
 import pandas as pd
 import cPickle as pickle
 import samples
+import numpy as np
 
 # get TCGA types
 population_dictionary_stripped = samples.get_population_dictionary()
@@ -25,9 +26,9 @@ for population in population_dictionary_stripped.keys():
                     alleles = ['-', '-']
                 elif line[2].strip() == '-':
                     x = line[1]
-                    alleles = [line[0]+'_'+x.split('*')[1].split(':')[0]+x.split('*')[1].split(':')[1]]*2
+                    alleles = [line[0]+'_'+x.split('*')[1].split(':')[0]+x.split('*')[1].split(':')[1].strip()]*2
                 else:
-                    alleles = [line[0]+'_'+x.split('*')[1].split(':')[0]+x.split('*')[1].split(':')[1] for x in line[1:3]]
+                    alleles = [line[0]+'_'+x.split('*')[1].split(':')[0]+x.split('*')[1].split(':')[1].strip() for x in line[1:3]]
                 patient_dictionary[line[0]+'_allele1'] = alleles[0]
                 patient_dictionary[line[0]+'_allele2'] = alleles[1]
             # combinations
@@ -36,9 +37,9 @@ for population in population_dictionary_stripped.keys():
                     alleles = ['-', '-']
                 elif line[2].strip() == '-':
                     x = line[1]
-                    alleles = [line[0]+x.split('*')[1].split(':')[0]+x.split('*')[1].split(':')[1]]*2
+                    alleles = [line[0]+x.split('*')[1].split(':')[0]+x.split('*')[1].split(':')[1].strip()]*2
                 else:
-                    alleles = [line[0]+x.split('*')[1].split(':')[0]+x.split('*')[1].split(':')[1] for x in line[1:3]]
+                    alleles = [line[0]+x.split('*')[1].split(':')[0]+x.split('*')[1].split(':')[1].strip() for x in line[1:3]]
                 patient_dictionary[line[0]+'_allele1'] = alleles[0]
                 patient_dictionary[line[0]+'_allele2'] = alleles[1]
                 all_patient_dictionary[sample] = patient_dictionary
@@ -47,6 +48,8 @@ for population in population_dictionary_stripped.keys():
 
 
 df = pd.DataFrame(all_patient_dictionary).transpose()
+
+df = df.replace('-', np.nan).dropna().index
 
 df.to_csv('/cellar/users/ramarty/Data/hla_ii/hla_types/hla_types.alternate.csv')
 pickle.dump(all_patient_dictionary, open('/cellar/users/ramarty/Data/hla_ii/hla_types/hla_types.alternate.p', 'wb'))
