@@ -143,4 +143,3 @@ results_dfII$predicted_prob<-exp(results_dfII$predicted)
 results_dfII$label_fact <- factor(results_dfII$label)
 
 write.table(results_dfII, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions.both_classes.model_", args[3], ".", args[1], '.', args[2], ".data.txt", sep=''))
-
