@@ -49,7 +49,7 @@ for population in population_dictionary_stripped.keys():
 
 df = pd.DataFrame(all_patient_dictionary).transpose()
 
-df = df.replace('-', np.nan).dropna().index
+df = df.replace('-', np.nan).dropna()
 
 df.to_csv('/cellar/users/ramarty/Data/hla_ii/hla_types/hla_types.alternate.csv')
 pickle.dump(all_patient_dictionary, open('/cellar/users/ramarty/Data/hla_ii/hla_types/hla_types.alternate.p', 'wb'))
