@@ -25,7 +25,7 @@ y= as.vector(mut); z= as.vector(aff1)
 gene= rep(colnames(mut),each=nrow(mut))
 pat= rep(rownames(mut),ncol(mut))
 nmut= colSums(mut)
-sel= gene %in% names(nmut[nmut>=mutation_threshold])
+sel= gene %in% names(nmut[nmut>mutation_threshold])
 
 # to select a smaller data subset
 #sampled_pats = head(unique(pat), 100)
