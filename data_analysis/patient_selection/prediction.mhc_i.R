@@ -52,7 +52,7 @@ if (model == 0){
         # to train the model
         DataCV=df[-sample_rows, ]
         # train the model
-        M1 <- glmer(y ~ z, data=DataCV, family='binomial')
+        M1 <- glm(y ~ z, data=DataCV, family='binomial')
         # predict mutation probabilities
         P1=predict(M1, DataC1)
         names(P1)=NULL
@@ -75,7 +75,7 @@ if (model == 1){
         # to train the model
         DataCV=df[-sample_rows, ]
         # train the model
-        M1 <- glmer(y ~ log(z), data=DataCV, family='binomial')
+        M1 <- glm(y ~ log(z), data=DataCV, family='binomial')
         # predict mutation probabilities
         P1=predict(M1, DataC1)
         names(P1)=NULL
