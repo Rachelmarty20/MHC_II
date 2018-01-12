@@ -52,7 +52,6 @@ if (model == 0){
         write.table(tabgene,
         file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/OR/MHC_II.pan.thresh_", mutation_threshold, ".", name, ".txt", sep=''))
 
-
     }
 
     if (pan == 0){
@@ -65,9 +64,8 @@ if (model == 0){
         genesel= (gene %in% names(nmut[nmut>=mutation_threshold]))
 
         # train models
-        #tissuetypes <- c('MESO', 'BRCA', 'UCS', 'LUSC', 'GBM', 'READ', 'KICH', 'COAD', 'SKCM', 'STAD', 'THCA', 'PRAD', 'CESC', 'BLCA', 'UVM', 'ACC', 'LGG', 'UCEC', 'TGCT', 'OV', 'LAML', 'LUAD', 'LIHC', 'HNSC', 'PCPG', 'KIRP', 'DLBC', 'KIRC', 'PAAD')
-        tissuetypes <- c('BRCA', 'LUSC', 'GBM', 'READ', 'COAD', 'SKCM', 'STAD', 'THCA', 'PRAD', 'BLCA', 'LGG', 'UCEC', 'OV', 'LUAD', 'LIHC', 'HNSC', 'PAAD')
-
+        tissuetypes <- c('LUAD','HNSC','LGG','PRAD','THCA','SKCM','LUSC','STAD','BLCA',
+                            'GBM','LIHC','COAD','KIRC','KIRP','BRCA','OV','PCPG','PAAD','TGCT','LAML')
         OR <- CI_low <- CI_high <- predicted <- vector("list",length(tissuetypes))
         for (i in 1:length(tissuetypes)) {
             cat("TISSUE",tissuetypes[i])
@@ -162,7 +160,8 @@ if (model == 1){
         genesel= (gene %in% names(nmut[nmut>=mutation_threshold]))
 
         # train models
-        tissuetypes <- c('BRCA', 'LUSC', 'GBM', 'READ', 'COAD', 'SKCM', 'STAD', 'THCA', 'PRAD', 'BLCA', 'LGG', 'UCEC', 'OV', 'LUAD', 'LIHC', 'HNSC', 'PAAD')
+        tissuetypes <- c('LUAD','HNSC','LGG','PRAD','THCA','SKCM','LUSC','STAD','BLCA',
+                        'GBM','LIHC','COAD','KIRC','KIRP','BRCA','OV','PCPG','PAAD','TGCT','LAML')
         OR <- CI_low <- CI_high <- predicted <- tissues <- vector("list",length(tissuetypes)*2)
         for (i in 1:length(tissuetypes)) {
             cat("TISSUE",tissuetypes[i],"\n")
