@@ -18,6 +18,8 @@ aff2_file = args[6]
 name = args[7]
 pan = as.integer(args[8])
 
+get_or <- function(fit) { c(exp(c(coef(fit)[2,1],coef(fit)[2,1]-1.96*coef(fit)[2,2],coef(fit)[2,1]+1.96*coef(fit)[2,2])),coef(fit)[2,4]) }
+
 print(paste(name, mutation_threshold, model, pan))
 
 ### Model with MHC-II ###
@@ -39,21 +41,18 @@ if (model == 0){
         nmut= colSums(mut)
         sel= gene %in% names(nmut[nmut>=mutation_threshold])
 
-        ## Pan-cancer ##
-        # Make dataframe
-        sampled_pats = unique(pat)
-        sel_pat = pat %in% sampled_pats
-        df = data.frame(y[sel&sel_pat], x[sel&sel_pat], pat[sel&sel_pat])
-        colnames(df)<-c('y', 'x', 'pat')
 
-        # Train model
-        gam = gam(y ~ s(x), data=df, family='binomial')
-        low_x = quantile(df[['x']], 0.25, names=FALSE)
-        high_x = quantile(df[['x']], 0.75, names=FALSE)
-        results = or_gam(data = df, model = gam, pred = c("x"), values=c(low_x, high_x))
+        lme2= glmer(y[sel] ~ log(x[sel]) + (1|pat[sel]), family='binomial')
+        mysummarypan <- vector("list",2)
+        mysummarypan[[1]] <- summary(lme2)
+        mysummarypan[[2]] <- summary(lme2)
+        tabgene <- do.call(rbind,lapply(mysummarypan,get_or))
+        rownames(tabgene) <- c('mutation', 'patient')
+        colnames(tabgene) <- c('OR', "conf_OR_low", 'conf_OR_high', 'P')
+        write.table(tabgene,
+        file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/OR/MHC_II.pan.thresh_", mutation_threshold, ".", name, ".txt", sep=''))
 
-        # Format output
-        write.table(results, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/OR/MHC_II.pan.thresh_", mutation_threshold, ".", name, ".txt", sep=''))
+
     }
 
     if (pan == 0){
