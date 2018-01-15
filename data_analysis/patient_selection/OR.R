@@ -70,7 +70,7 @@ if (model == 0){
         for (i in 1:length(tissuetypes)) {
             cat("TISSUE",tissuetypes[i])
             #
-            patsel= pat %in% as.character(tissue$Sample[tissue$Tissue==tissuetypes[i]])
+            patsel= pat %in% as.character(tissue$X[tissue$Tissue==tissuetypes[i]])
             sel= genesel & patsel
 
             df = data.frame(y[sel&patsel], x[sel&patsel], pat[sel&patsel])
@@ -102,8 +102,13 @@ if (model == 1){
     mut <- read.csv(paste(PATH_TO_DATA, mut_file, sep=""),header=TRUE)
     aff1 <- read.csv(paste(PATH_TO_DATA, aff1_file, sep=""),header=TRUE)
     aff2 <- read.csv(paste(PATH_TO_DATA, aff2_file, sep=""),header=TRUE)
+    print(dim(mut))
+    print(dim(aff1))
+    print(dim(aff2))
+
+
     patient <- as.character(mut[,1])
-    tissue <- tissue[tissue$Sample %in% patient, ]
+    #tissue <- tissue[tissue$Sample %in% patient, ]
     mut <- as.matrix(mut[,-1])
     aff1 <- as.matrix(aff1[,-1])
     aff2 <- as.matrix(aff2[,-1])
@@ -133,7 +138,7 @@ if (model == 1){
         results1 = or_gam(data = df, model = gam, pred = c("x"), values=c(low_x, high_x))
         results2 = or_gam(data = df, model = gam, pred = c("z"), values=c(low_z, high_z))
 
-        OR <- CI_low <- CI_high <- predicted <- tissue <- vector("list",2)
+        OR <- CI_low <- CI_high <-  predicted <- vector("list",2)
 
         OR[[1]] <- results1[['oddsratio']]
         CI_low[[1]] <- results1[['CI_low (2.5%)']]
@@ -166,7 +171,7 @@ if (model == 1){
         for (i in 1:length(tissuetypes)) {
             cat("TISSUE",tissuetypes[i],"\n")
             #
-            patsel= pat %in% as.character(tissue$Sample[tissue$Tissue==tissuetypes[i]])
+            patsel= pat %in% as.character(tissue$X[tissue$Tissue==tissuetypes[i]])
             cat(sum(y[patsel]), "\n")
 
             sel= genesel & patsel
