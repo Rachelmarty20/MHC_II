@@ -125,7 +125,7 @@ if (model == 1){
         colnames(df)<-c('y', 'x', 'z', 'pat')
 
         # Train model
-        gam = gam(y ~ s(x, z), data=df, family='binomial')
+        gam = gam(y ~ s(log(x), log(z)), data=df, family='binomial')
         low_x = quantile(df[['x']], 0.25, names=FALSE)
         high_x = quantile(df[['x']], 0.75, names=FALSE)
         low_z = quantile(df[['z']], 0.25, names=FALSE)
@@ -174,7 +174,7 @@ if (model == 1){
             df = data.frame(y[sel], x[sel], z[sel], pat[sel])
             colnames(df)<-c('y', 'x', 'z', 'pat')
 
-            gam = gam(y ~ s(x, z), data=df, family='binomial')
+            gam = gam(y ~ s(log(x), log(z)), data=df, family='binomial')
             low_x = quantile(df[['x']], 0.25, names=FALSE)
             high_x = quantile(df[['x']], 0.75, names=FALSE)
             low_z = quantile(df[['z']], 0.25, names=FALSE)
