@@ -26,7 +26,7 @@ sel= gene %in% names(nmut[nmut>=2])
 gamlog10 = gam(y[sel] ~ s(log10(x[sel]), log10(z[sel])), family='binomial')
 
 pdf('/cellar/users/ramarty/Data/hla_ii/generated_figures/class_comparison/mutation_probability_density.pdf',
-      width=3.25,height=3.25)
+      width=3,height=3)
 par(mar=c(3.5,3,1.1,1.5)-0.3, mgp=c(1.25,0.25,0),las=1)
 plot(gamlog10, rug=FALSE, all.terms=TRUE, scheme=c(2,1), ylim=c(-2,2), xlim=c(-2,2),
      xlab='Log(MHC-I)',ylab='Log(MHC-II)', main=' ',
