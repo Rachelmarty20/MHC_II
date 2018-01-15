@@ -65,7 +65,7 @@ if (model == 0){
 
         # train models
         tissuetypes <- c('LUAD','HNSC','LGG','PRAD','THCA','SKCM','LUSC','STAD','BLCA',
-                            'GBM','LIHC','COAD','KIRC','KIRP','BRCA','OV','PCPG','PAAD','TGCT','LAML')
+                            'GBM','LIHC','COAD','KIRC','KIRP','BRCA','OV','PCPG','PAAD','TGCT')
         OR <- CI_low <- CI_high <- predicted <- vector("list",length(tissuetypes))
         for (i in 1:length(tissuetypes)) {
             cat("TISSUE",tissuetypes[i])
@@ -166,7 +166,7 @@ if (model == 1){
 
         # train models
         tissuetypes <- c('LUAD','HNSC','LGG','PRAD','THCA','SKCM','LUSC','STAD','BLCA',
-                        'GBM','LIHC','COAD','KIRC','KIRP','BRCA','OV','PCPG','PAAD','TGCT','LAML')
+                        'GBM','LIHC','COAD','KIRC','KIRP','BRCA','OV','PCPG','PAAD','TGCT')
         OR <- CI_low <- CI_high <- predicted <- tissues <- vector("list",length(tissuetypes)*2)
         for (i in 1:length(tissuetypes)) {
             cat("TISSUE",tissuetypes[i],"\n")
