@@ -23,10 +23,10 @@ rownames(mut) <- rownames(aff1) <- rownames(aff2) <- patient
 
 # Subsetting tissue df to match mut df
 patients = as.vector(row.names(mut))
-tissue = subset(tissue, Sample %in% patients)
+#tissue = subset(tissue, Sample %in% patients)
 
 # These are added for the meaning change
-tissue_patients = as.vector(tissue$Sample[tissue$Tissue==tissue_type])
+tissue_patients = as.vector(tissue$X[tissue$Tissue==tissue_type])
 tissue_mut = mut[tissue_patients,]
 
 y= as.vector(mut); x= as.vector(aff1); z= as.vector(aff2)
@@ -36,7 +36,7 @@ pat= rep(rownames(mut),ncol(mut))
 
 nmut= colSums(tissue_mut)
 genesel= gene %in% names(nmut[nmut>=mutation_threshold])
-patsel= pat %in% as.character(tissue$Sample[tissue$Tissue==tissue_type])
+patsel= pat %in% as.character(tissue$X[tissue$Tissue==tissue_type])
 
 sel= genesel & patsel
 df = data.frame(y[sel], x[sel], z[sel], pat[sel])
