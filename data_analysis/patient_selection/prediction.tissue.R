@@ -23,7 +23,7 @@ rownames(mut) <- rownames(aff1) <- rownames(aff2) <- patient
 
 # Subsetting tissue df to match mut df
 patients = as.vector(row.names(mut))
-#tissue = subset(tissue, Sample %in% patients)
+tissue = subset(tissue, X %in% patients)
 
 # These are added for the meaning change
 tissue_patients = as.vector(tissue$X[tissue$Tissue==tissue_type])
