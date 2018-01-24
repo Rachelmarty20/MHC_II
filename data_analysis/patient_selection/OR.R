@@ -179,7 +179,7 @@ if (model == 1){
             df = data.frame(y[sel], x[sel], z[sel], pat[sel])
             colnames(df)<-c('y', 'x', 'z', 'pat')
 
-            gam = gam(y ~ x + z, data=df, family='binomial')
+            gam = gam(y ~ z + x, data=df, family='binomial')
             low_x = quantile(df[['x']], 0.25, names=FALSE)
             high_x = quantile(df[['x']], 0.75, names=FALSE)
             low_z = quantile(df[['z']], 0.25, names=FALSE)
