@@ -61,36 +61,32 @@ if (model == 0){
         gene= rep(colnames(mut),each=nrow(mut))
         pat= rep(rownames(mut),ncol(mut))
         nmut= colSums(mut)
-        genesel= (gene %in% names(nmut[nmut>=mutation_threshold]))
+        genesel= (gene %in% names(nmut[nmut>=5]))
 
-        # train models
-        tissuetypes <- c('LUAD','HNSC','LGG','PRAD','THCA','SKCM','LUSC','STAD','BLCA',
-                            'GBM','LIHC','COAD','KIRC','KIRP','BRCA','OV','PCPG','PAAD','TGCT')
-        OR <- CI_low <- CI_high <- predicted <- vector("list",length(tissuetypes))
+        #tissuetypes <- as.character(unique(tissue[,2]))
+        tissuetypes <- c('GBM', 'OV','LUAD','LUSC','PRAD','UCEC','BLCA','PAAD','LIHC',
+                         'BRCA','COAD','STAD','SKCM','THCA','HNSC','READ','LGG','UCS')
+        mysummary0 <- mysummary1 <- mysummary2 <- vector("list",length(tissuetypes))
+        names(mysummary0) <- names(mysummary1) <- names(mysummary2) <- tissuetypes
+
+
         for (i in 1:length(tissuetypes)) {
             cat("TISSUE",tissuetypes[i])
             #
-            patsel= pat %in% as.character(tissue$X[tissue$Tissue==tissuetypes[i]])
+            patsel= pat %in% as.character(tissue$Sample[tissue$Tissue==tissuetypes[i]])
             sel= genesel & patsel
-
-            df = data.frame(y[sel&patsel], x[sel&patsel], pat[sel&patsel])
-            colnames(df)<-c('y', 'x', 'pat')
-
-            gam = gam(y ~ s(x), data=df, family='binomial')
-            low_x = quantile(df[['x']], 0.25, names=FALSE)
-            high_x = quantile(df[['x']], 0.75, names=FALSE)
-            results = or_gam(data = df, model = gam, pred = c("x"), values=c(low_x, high_x))
-            OR[[i]] <- results[['oddsratio']]
-            CI_low[[i]] <- results[['CI_low (2.5%)']]
-            CI_high[[i]] <- results[['CI_high (97.5%)']]
-            predicted[[i]] <- results[['predictor']]
-
+            #
+            lme2= glmer(y[sel] ~ log(x[sel]) + (1|pat[sel]), family='binomial')
+            mysummary2[[i]] <- summary(lme2)
             cat("Done \n")
         }
 
-        # Format output
-        results = cbind(cbind(cbind(cbind(OR, CI_low), CI_high), predicted), tissuetypes)
-        write.table(results, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/OR/MHC_II.tissue.thresh_", mutation_threshold, ".", name, ".txt", sep=''))
+        tabpatI <- do.call(rbind,lapply(mysummary2,get_or))
+        colnames(tabpatI) <- c('OR', 'Lci', 'Hci', 'P')
+        write.table(tabpatI, sep=',',
+                    file=paste("/cellar/users/ramarty/Data/hla_ii/generated_data/OR/MHC_II.tissue.thresh_", mutation_threshold, ".", name, ".txt", sep=''))
+
+
     }
 }
 
@@ -179,7 +175,7 @@ if (model == 1){
             df = data.frame(y[sel], x[sel], z[sel], pat[sel])
             colnames(df)<-c('y', 'x', 'z', 'pat')
 
-            gam = gam(y ~ z + x, data=df, family='binomial')
+            gam = glm(y ~ z + x, data=df, family='binomial')
             low_x = quantile(df[['x']], 0.25, names=FALSE)
             high_x = quantile(df[['x']], 0.75, names=FALSE)
             low_z = quantile(df[['z']], 0.25, names=FALSE)
