@@ -73,7 +73,7 @@ if (model == 0){
         for (i in 1:length(tissuetypes)) {
             cat("TISSUE",tissuetypes[i])
             #
-            patsel= pat %in% as.character(tissue$Sample[tissue$Tissue==tissuetypes[i]])
+            patsel= pat %in% as.character(tissue$X[tissue$Tissue==tissuetypes[i]])
             sel= genesel & patsel
             #
             lme2= glmer(y[sel] ~ log(x[sel]) + (1|pat[sel]), family='binomial')
