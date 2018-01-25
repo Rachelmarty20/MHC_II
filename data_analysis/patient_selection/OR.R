@@ -61,7 +61,7 @@ if (model == 0){
         gene= rep(colnames(mut),each=nrow(mut))
         pat= rep(rownames(mut),ncol(mut))
         nmut= colSums(mut)
-        genesel= (gene %in% names(nmut[nmut>=5]))
+        genesel= (gene %in% names(nmut[nmut>=mutation_threshold]))
 
         #tissuetypes <- as.character(unique(tissue[,2]))
         tissuetypes <- c('GBM', 'OV','LUAD','LUSC','PRAD','UCEC','BLCA','PAAD','LIHC',
