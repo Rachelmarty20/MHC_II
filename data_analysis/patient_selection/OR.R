@@ -24,6 +24,7 @@ print(paste(name, mutation_threshold, model, pan))
 
 ### Model with MHC-II ###
 if (model == 0){
+    print('Model 0')
     # Import data
     tissue <- read.csv(paste(PATH_TO_DATA, tissue_file, sep=""),header=TRUE)
     mut <- read.csv(paste(PATH_TO_DATA, mut_file, sep=""),header=TRUE)
@@ -36,6 +37,7 @@ if (model == 0){
     rownames(mut) <- rownames(aff) <- patient
 
     if (pan == 1){
+        print('Pan 1')
         # Format data
         y= as.vector(mut); x= as.vector(aff)
         gene= rep(colnames(mut),each=nrow(mut))
