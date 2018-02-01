@@ -45,8 +45,9 @@ if (model == 0){
         nmut= colSums(mut)
         sel= gene %in% names(nmut[nmut>=mutation_threshold])
 
-
+        print('pre model')
         lme2= glmer(y[sel] ~ log(x[sel]) + (1|pat[sel]), family='binomial')
+        print('post model')
         mysummarypan <- vector("list",2)
         print(mysummarypan)
         mysummarypan[[1]] <- summary(lme2)
