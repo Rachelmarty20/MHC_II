@@ -28,6 +28,8 @@ if (model == 0){
     tissue <- read.csv(paste(PATH_TO_DATA, tissue_file, sep=""),header=TRUE)
     mut <- read.csv(paste(PATH_TO_DATA, mut_file, sep=""),header=TRUE)
     aff <- read.csv(paste(PATH_TO_DATA, aff1_file, sep=""),header=TRUE)
+    print(dim(mut))
+    print(dim(aff))
     patient <- as.character(mut[,1])
     mut <- as.matrix(mut[,-1])
     aff <- as.matrix(aff[,-1])
