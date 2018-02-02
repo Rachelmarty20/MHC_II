@@ -49,7 +49,6 @@ if (model == 0){
         lme2= glmer(y[sel] ~ log(x[sel]) + (1|pat[sel]), family='binomial')
         print('post model')
         mysummarypan <- vector("list",2)
-        print(mysummarypan)
         mysummarypan[[1]] <- summary(lme2)
         mysummarypan[[2]] <- summary(lme2)
         tabgene <- do.call(rbind,lapply(mysummarypan,get_or))
@@ -181,7 +180,7 @@ if (model == 1){
             df = data.frame(y[sel], x[sel], z[sel], pat[sel])
             colnames(df)<-c('y', 'x', 'z', 'pat')
 
-            gam = glm(y ~ z + x, data=df, family='binomial')
+            gam = glm(y ~ x + z, data=df, family='binomial')
             low_x = quantile(df[['x']], 0.25, names=FALSE)
             high_x = quantile(df[['x']], 0.75, names=FALSE)
             low_z = quantile(df[['z']], 0.25, names=FALSE)
