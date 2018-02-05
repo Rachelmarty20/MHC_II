@@ -44,7 +44,8 @@ sel= gene %in% names(nmut[nmut>=mutation_threshold])
 
 
 # MHC-II
-pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_ii.threshold_', mutation_threshold, '.pdf', sep=''))
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_ii.threshold_',
+mutation_threshold, '.pdf', sep=''), width=3,height=2.75)
 gam2= gam(y[sel] ~ s(log(z[sel])), family='binomial')
 ypred= predict(gam2,type='response',se.fit=TRUE)
 o= order(z[sel])
