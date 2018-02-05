@@ -44,14 +44,17 @@ sel= gene %in% names(nmut[nmut>=mutation_threshold])
 
 
 # MHC-II
-#pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_ii.threshold_', mutation_threshold, '.pdf', sep=''))
-#gam2= gam(y[sel] ~ s(log(z[sel])), family='binomial')
-#ypred= predict(gam2,type='response',se.fit=TRUE)
-#o= order(z[sel])
-#plot(z[sel][o],ypred$fit[o],type='l',xlim=c(1,100),xlab='MHC-II PHBR',ylab='Mutation probability',main='Generalized additive model')
-#lines(z[sel][o],ypred$fit[o]-1.96*ypred$se.fit[o],lty=2)
-#lines(z[sel][o],ypred$fit[o]+1.96*ypred$se.fit[o],lty=2)
-#dev.off()
+pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_ii.threshold_', mutation_threshold, '.pdf', sep=''))
+gam2= gam(y[sel] ~ s(log(z[sel])), family='binomial')
+ypred= predict(gam2,type='response',se.fit=TRUE)
+o= order(z[sel])
+par(mar=c(3.8,3.8,1.1,1.5)-0.3, mgp=c(2.25,0.3,0),las=1)
+
+plot(z[sel][o],ypred$fit[o],type='l',xlim=c(1,100),xlab='PHBR-II',ylab='Mutation probability',
+        cex=.5, cex.sub=0.5)
+lines(z[sel][o],ypred$fit[o]-1.96*ypred$se.fit[o],lty=2)
+lines(z[sel][o],ypred$fit[o]+1.96*ypred$se.fit[o],lty=2)
+dev.off()
 #pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam_log.mhc_ii.threshold_', mutation_threshold, '.pdf', sep=''))
 #plot(gam2,rug=FALSE,xlab='log MHC-II PHBR',ylab='logit mutation probability',main='Estimated logit(prob) vs log(affinity)')
 #dev.off()
@@ -59,58 +62,58 @@ sel= gene %in% names(nmut[nmut>=mutation_threshold])
 # MHC-I / MHC-II
 
 ## log-log
-gam_interact= gam(y[sel] ~ s(log(x[sel]), log(z[sel])), family='binomial')
-pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.log_mhc_i_log_mhc_ii.threshold_', mutation_threshold, '.surface.pdf', sep=''))
-plot(gam_interact, all.terms=TRUE, scheme=1, ylim=c(0,4.5), xlim=c(-2,2),
-     xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
-dev.off()
+#gam_interact= gam(y[sel] ~ s(log(x[sel]), log(z[sel])), family='binomial')
+#pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.log_mhc_i_log_mhc_ii.threshold_', mutation_threshold, '.surface.pdf', sep=''))
+#plot(gam_interact, all.terms=TRUE, scheme=1, ylim=c(0,4.5), xlim=c(-2,2),
+#     xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
+#dev.off()
 #pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.log_mhc_i_log_mhc_ii.threshold_', mutation_threshold, '.heatmap_points.pdf', sep=''))
 #plot(gam_interact, all.terms=TRUE, scheme=c(2,1), ylim=c(0,4.5), xlim=c(-2,2),
 #     xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
 #dev.off()
-pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.log_mhc_i_log_mhc_ii.threshold_', mutation_threshold, '.heatmap.pdf', sep=''))
-plot(gam_interact, rug=FALSE, all.terms=TRUE, scheme=c(2,1), ylim=c(0,4.5), xlim=c(-2,2),
-     xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
-dev.off()
+#pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.log_mhc_i_log_mhc_ii.threshold_', mutation_threshold, '.heatmap.pdf', sep=''))
+#plot(gam_interact, rug=FALSE, all.terms=TRUE, scheme=c(2,1), ylim=c(0,4.5), xlim=c(-2,2),
+#     xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
+#dev.off()
 
-pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.log_mhc_i_log_mhc_ii.threshold_', mutation_threshold, '.surface.whole.pdf', sep=''))
-plot(gam_interact, all.terms=TRUE, scheme=1,
-     xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
-dev.off()
+#pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.log_mhc_i_log_mhc_ii.threshold_', mutation_threshold, '.surface.whole.pdf', sep=''))
+#plot(gam_interact, all.terms=TRUE, scheme=1,
+#     xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
+#dev.off()
 #pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.log_mhc_i_log_mhc_ii.threshold_', mutation_threshold, '.heatmap_points.whole.pdf', sep=''))
 #plot(gam_interact, all.terms=TRUE, scheme=c(2,1),
 #     xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
 #dev.off()
-pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.log_mhc_i_log_mhc_ii.threshold_', mutation_threshold, '.heatmap.whole.pdf', sep=''))
-plot(gam_interact, rug=FALSE, all.terms=TRUE, scheme=c(2,1),
-     xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
-dev.off()
+#pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.log_mhc_i_log_mhc_ii.threshold_', mutation_threshold, '.heatmap.whole.pdf', sep=''))
+#plot(gam_interact, rug=FALSE, all.terms=TRUE, scheme=c(2,1),
+#     xlab='Log(MHC-I PHBR)',ylab='Log(MHC-II PHBR)', main='Mutation Probability')
+#dev.off()
 
 
 # nonlog-nonlog
-gam_interact_nonlog= gam(y[sel] ~ s(x[sel], z[sel]), family='binomial')
-pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i_mhc_ii.threshold_', mutation_threshold, '.surface.pdf', sep=''))
-plot(gam_interact_nonlog, all.terms=TRUE, scheme=1, ylim=c(0,60), xlim=c(0,5),
-     xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
-dev.off()
+#gam_interact_nonlog= gam(y[sel] ~ s(x[sel], z[sel]), family='binomial')
+#pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i_mhc_ii.threshold_', mutation_threshold, '.surface.pdf', sep=''))
+#plot(gam_interact_nonlog, all.terms=TRUE, scheme=1, ylim=c(0,60), xlim=c(0,5),
+#     xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
+#dev.off()
 #pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i_mhc_ii.threshold_', mutation_threshold, '.heatmap_points.pdf', sep=''))
 #plot(gam_interact_nonlog, all.terms=TRUE, scheme=c(2,1), ylim=c(0,60), xlim=c(0,5),
 #     xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
 #dev.off()
-pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i_mhc_ii.threshold_', mutation_threshold, '.heatmap.pdf', sep=''))
-plot(gam_interact_nonlog, rug=FALSE, se=TRUE, scheme=2, ylim=c(0,60), xlim=c(0,5),
-     xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
-dev.off()
+#pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i_mhc_ii.threshold_', mutation_threshold, '.heatmap.pdf', sep=''))
+#plot(gam_interact_nonlog, rug=FALSE, se=TRUE, scheme=2, ylim=c(0,60), xlim=c(0,5),
+#     xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
+#dev.off()
 
-pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i_mhc_ii.threshold_', mutation_threshold, '.surface.whole.pdf', sep=''))
-plot(gam_interact_nonlog, all.terms=TRUE, scheme=1,
-     xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
-dev.off()
+#pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i_mhc_ii.threshold_', mutation_threshold, '.surface.whole.pdf', sep=''))
+#plot(gam_interact_nonlog, all.terms=TRUE, scheme=1,
+#     xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
+#dev.off()
 #pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i_mhc_ii.threshold_', mutation_threshold, '.heatmap_points.whole.pdf', sep=''))
 #plot(gam_interact_nonlog, all.terms=TRUE, scheme=c(2,1),
 #     xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
 #dev.off()
-pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i_mhc_ii.threshold_', mutation_threshold, '.heatmap.whole.pdf', sep=''))
-plot(gam_interact_nonlog, rug=FALSE, se=TRUE, scheme=2,
-     xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
-dev.off()
+#pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/matched_models/gam.mhc_i_mhc_ii.threshold_', mutation_threshold, '.heatmap.whole.pdf', sep=''))
+#plot(gam_interact_nonlog, rug=FALSE, se=TRUE, scheme=2,
+#     xlab='MHC-I PHBR',ylab='MHC-II PHBR', main='Mutation Probability')
+#dev.off()
