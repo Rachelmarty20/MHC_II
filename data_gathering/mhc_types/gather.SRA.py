@@ -4,7 +4,7 @@ import samples
 import numpy as np
 
 # get TCGA types
-samples = list(set([x.strip() for x in open('/cellar/users/ramarty/Data/hla_ii/hla_types/samples.SRA.txt').readlines()]))
+samples = list(set([x.strip() for x in open('/cellar/users/ramarty/Data/hla_ii/hla_types/samples.SRA.txt').readlines() if x != '\n']))
 
 all_patient_dictionary = {}
 for i, sample in enumerate(samples):
@@ -12,7 +12,6 @@ for i, sample in enumerate(samples):
 
     patient_dictionary = {}
     directory = '/data/nrnb03/users/ramarty/{0}'.format(sample)
-    print directory
 
     lines = [x.split('\t') for x in open('{0}/hlaHD.txt'.format(directory)).readlines()[:8]]
 
