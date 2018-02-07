@@ -14,7 +14,7 @@ for i, sample in enumerate(samples):
     directory = '/data/nrnb03/users/ramarty/{0}'.format(sample)
 
 
-    lines = [x.split('\t') for x in open('hlaHD.txt'.format(sample)).readlines()[:8]]
+    lines = [x.split('\t') for x in open('/data/nrnb03/users/ramarty/{0}/hlaHD.txt'.format(sample)).readlines()[:8]]
 
     patient_dictionary = {}
     for line in lines:
