@@ -2,13 +2,15 @@ import pandas as pd
 import cPickle as pickle
 import sys
 
+# Update to include options for
+
 
 def main(category, population, condition):
 
     if population == 'TCGA':
         patient_dictionary = pickle.load(open('/cellar/users/ramarty/Data/hla_ii/hla_types/TCGA.HLA_classII.p'))
     else:
-        patient_dictionary = pickle.load(open('/cellar/users/ramarty/Data/hla_ii/hla_types/Alternate.HLA_classII.p'))
+        patient_dictionary = pickle.load(open('/cellar/users/ramarty/Data/hla_ii/hla_types/SRA.HLA_classII.p'))
 
     if condition == 'mut':
         df = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/allele_matrices/{0}.csv'.format(category), index_col=0)
@@ -32,7 +34,7 @@ def main(category, population, condition):
         else:
             df[patients_used].to_csv('/cellar/users/ramarty/Data/hla_ii/presentation/patient_matrices/{0}.all.wt.csv'.format(category))
     else:
-        df[patients_used].to_csv('/cellar/users/ramarty/Data/hla_ii/presentation/patient_matrices/{0}.all.alternate.csv'.format(category))
+        df[patients_used].to_csv('/cellar/users/ramarty/Data/hla_ii/presentation/patient_matrices/{0}.all.SRA.csv'.format(category))
 
 def PHBR(x):
     number_of_alleles = len(x)
