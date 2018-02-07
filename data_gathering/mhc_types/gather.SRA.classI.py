@@ -12,18 +12,20 @@ all_patient_dictionary = {}
 for sample in samples:
     print sample
 
-    patient_dictionary = {}
-    directory = '/data/nrnb03/users/ramarty/{0}'.format(sample)
+    try:
+        patient_dictionary = {}
+        directory = '/data/nrnb03/users/ramarty/{0}'.format(sample)
 
-    f = open('{0}/result.txt'.format(directory)).readlines()[1].split('\t')
+        f = open('{0}/result.txt'.format(directory)).readlines()[1].split('\t')
 
-    patient_dictionary = {}
-    for g, i in zip(['A', 'B', 'C'], [1, 3, 5]):
-        patient_dictionary[g+'_allele1'] = '{0}_{1}{2}'.format(f[i][0], f[i][2:4], f[i][5:7])
-        patient_dictionary[g+'_allele2'] = '{0}_{1}{2}'.format(f[i+1][0], f[i+1][2:4], f[i+1][5:7])
+        patient_dictionary = {}
+        for g, i in zip(['A', 'B', 'C'], [1, 3, 5]):
+            patient_dictionary[g+'_allele1'] = '{0}_{1}{2}'.format(f[i][0], f[i][2:4], f[i][5:7])
+            patient_dictionary[g+'_allele2'] = '{0}_{1}{2}'.format(f[i+1][0], f[i+1][2:4], f[i+1][5:7])
 
-    all_patient_dictionary[sample] = patient_dictionary
-
+        all_patient_dictionary[sample] = patient_dictionary
+    except:
+        print "Patient not typed."
 
 df = pd.DataFrame(all_patient_dictionary).transpose()
 
