@@ -16,7 +16,7 @@ for sample in samples:
         patient_dictionary = {}
         directory = '/data/nrnb03/users/ramarty/{0}'.format(sample)
 
-        f = open('{0}/result.txt'.format(directory)).readlines()[1].split('\t')
+        f = open('{0}/result.tsv'.format(directory)).readlines()[1].split('\t')
 
         patient_dictionary = {}
         for g, i in zip(['A', 'B', 'C'], [1, 3, 5]):
