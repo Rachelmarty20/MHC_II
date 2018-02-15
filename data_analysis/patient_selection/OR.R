@@ -69,8 +69,9 @@ if (model == 0){
         genesel= (gene %in% names(nmut[nmut>=mutation_threshold]))
 
         #tissuetypes <- as.character(unique(tissue[,2]))
-        tissuetypes <- c('GBM', 'OV','LUAD','LUSC','PRAD','UCEC','BLCA','PAAD','LIHC',
-                         'BRCA','COAD','STAD','SKCM','THCA','HNSC','READ','LGG')
+        # 'OV','PRAD','BRCA',
+        tissuetypes <- c('GBM', 'LUAD','LUSC','UCEC','BLCA','PAAD','LIHC',
+                         'COAD','STAD','SKCM','THCA','HNSC','READ','LGG')
         mysummary0 <- mysummary1 <- mysummary2 <- vector("list",length(tissuetypes))
         names(mysummary0) <- names(mysummary1) <- names(mysummary2) <- tissuetypes
 
@@ -165,9 +166,9 @@ if (model == 1){
         nmut= colSums(mut)
         genesel= (gene %in% names(nmut[nmut>=mutation_threshold]))
 
-        # train models
-        tissuetypes <- c('LUAD','HNSC','LGG','PRAD','THCA','SKCM','LUSC','STAD','BLCA',
-                        'GBM','LIHC','COAD','KIRC','KIRP','BRCA','OV','PCPG','PAAD','TGCT')
+        # train models # 'BRCA','OV','PRAD',
+        tissuetypes <- c('LUAD','HNSC','LGG','THCA','SKCM','LUSC','STAD','BLCA',
+                        'GBM','LIHC','COAD','KIRC','KIRP','PCPG','PAAD','TGCT')
         OR <- CI_low <- CI_high <- predicted <- tissues <- vector("list",length(tissuetypes)*2)
         for (i in 1:length(tissuetypes)) {
             cat("TISSUE",tissuetypes[i],"\n")
