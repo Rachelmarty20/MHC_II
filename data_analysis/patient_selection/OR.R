@@ -69,8 +69,8 @@ if (model == 0){
         genesel= (gene %in% names(nmut[nmut>=mutation_threshold]))
 
         #tissuetypes <- as.character(unique(tissue[,2]))
-        # 'OV','PRAD','BRCA',
-        tissuetypes <- c('GBM', 'LUAD','LUSC','UCEC','BLCA','PAAD','LIHC',
+        # 'OV','PRAD','BRCA','UCEC',
+        tissuetypes <- c('GBM', 'LUAD','LUSC','BLCA','PAAD','LIHC',
                          'COAD','STAD','SKCM','THCA','HNSC','READ','LGG')
         mysummary0 <- mysummary1 <- mysummary2 <- vector("list",length(tissuetypes))
         names(mysummary0) <- names(mysummary1) <- names(mysummary2) <- tissuetypes
