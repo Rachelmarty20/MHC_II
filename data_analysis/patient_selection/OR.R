@@ -70,8 +70,8 @@ if (model == 0){
 
         #tissuetypes <- as.character(unique(tissue[,2]))
         # 'OV','PRAD','BRCA','UCEC',
-        tissuetypes <- c('GBM', 'LUAD','LUSC','BLCA','PAAD','LIHC',
-                         'COAD','STAD','SKCM','THCA','HNSC','READ','LGG')
+        tissuetypes <- c('GBM','LUAD','LUSC','BLCA','PAAD','COAD','STAD','SKCM',
+                        'THCA','HNSC','READ','LGG')
         mysummary0 <- mysummary1 <- mysummary2 <- vector("list",length(tissuetypes))
         names(mysummary0) <- names(mysummary1) <- names(mysummary2) <- tissuetypes
 
