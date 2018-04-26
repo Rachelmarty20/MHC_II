@@ -7,13 +7,14 @@ library(xtable)
 PATH_TO_DATA = '/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/'
 
 args = commandArgs(trailingOnly=TRUE)
-mutation_threshold = as.integer(args[1])
-class = args[2] # this is for whether it is MHC-II or both
-tissue_file = args[3]
-mut_file = args[4]
-aff1_file = args[5]
-name = args[6]
-pan = as.integer(args[7])
+pan = as.integer(args[1])
+class = args[2]
+name = args[3]
+mutation_threshold = as.integer(args[4])
+tissue_file = args[5]
+mut_file = args[6]
+aff_file = args[7]
+
 
 get_or <- function(fit) { c(exp(c(coef(fit)[2,1],coef(fit)[2,1]-1.96*coef(fit)[2,2],coef(fit)[2,1]+1.96*coef(fit)[2,2])),coef(fit)[2,4]) }
 
@@ -23,7 +24,7 @@ print(paste(pan, class, name, mutation_threshold))
 # Import data
 tissue <- read.csv(paste(PATH_TO_DATA, tissue_file, sep=""),header=TRUE)
 mut <- read.csv(paste(PATH_TO_DATA, mut_file, sep=""),header=TRUE)
-aff <- read.csv(paste(PATH_TO_DATA, aff1_file, sep=""),header=TRUE)
+aff <- read.csv(paste(PATH_TO_DATA, aff_file, sep=""),header=TRUE)
 print(dim(mut))
 print(dim(aff))
 patient <- as.character(mut[,1])
