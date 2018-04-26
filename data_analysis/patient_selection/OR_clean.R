@@ -17,7 +17,7 @@ pan = as.integer(args[7])
 
 get_or <- function(fit) { c(exp(c(coef(fit)[2,1],coef(fit)[2,1]-1.96*coef(fit)[2,2],coef(fit)[2,1]+1.96*coef(fit)[2,2])),coef(fit)[2,4]) }
 
-print(paste(name, mutation_threshold, model, pan))
+print(paste(pan, class, name, mutation_threshold))
 
 
 # Import data
