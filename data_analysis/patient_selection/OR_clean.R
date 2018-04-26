@@ -65,7 +65,7 @@ if (pan == 0){
     ## Tissue-specific ##
     #tissuetypes <- as.character(unique(tissue[,2]))
     tissuetypes <- c('GBM','LUAD','LUSC','BLCA','PAAD','COAD','STAD','SKCM',
-                    'THCA','HNSC','READ','LGG')
+                    'THCA','HNSC','READ','LGG', 'BRCA','OV','PRAD')
     mysummary0 <- mysummary1 <- mysummary2 <- vector("list",length(tissuetypes))
     names(mysummary0) <- names(mysummary1) <- names(mysummary2) <- tissuetypes
 
