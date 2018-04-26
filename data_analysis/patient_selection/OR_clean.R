@@ -86,6 +86,7 @@ if (pan == 0){
         # getting everything in the right format
         patient <- as.character(mut2[,1])
         mut2 <- as.matrix(mut2[,-1])
+        mut_all <- as.matrix(mut[,-1])
         aff2 <- as.matrix(aff2[,-1])
         rownames(mut2) <- rownames(aff2) <- patient
 
@@ -93,7 +94,7 @@ if (pan == 0){
         y= as.vector(mut2); x= as.vector(aff2)
         gene= rep(colnames(mut2),each=nrow(mut2))
         pat= rep(rownames(mut2),ncol(mut2))
-        nmut= colSums(mut2)
+        nmut= colSums(mut_all)
         genesel= (gene %in% names(nmut[nmut>=mutation_threshold]))
 
         patsel= pat %in% as.character(tissue2$X[tissue2$Tissue==tissuetypes[i]])
