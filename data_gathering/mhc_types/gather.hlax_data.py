@@ -7,7 +7,7 @@ barcodes = samples.get_barcodes()
 
 all_patient_dictionary = {}
 for i, barcode in enumerate(barcodes):
-    print barcode
+    print barcode, len(all_patient_dictionary.keys())
 
     patient_dictionary = {}
     directory = '/nrnb/users/ramarty/TCGA/exomes/{0}/hlaHD/sampleID_hlax_data/result/'.format(barcode)
@@ -45,7 +45,7 @@ for i, barcode in enumerate(barcodes):
 
 df = pd.DataFrame(all_patient_dictionary).transpose()
 
-df.to_csv('/cellar/users/ramarty/Data/hla_ii/hla_types/hla_types.tcga.csv')
+df.to_csv('/cellar/users/ramarty/Data/hla_ii/hla_types/hla_types.tcga._hlax_data.csv')
 pickle.dump(all_patient_dictionary, open('/cellar/users/ramarty/Data/hla_ii/hla_types/hla_types.tcga._hlax_data.p', 'wb'))
 
 # A better dictionary...
