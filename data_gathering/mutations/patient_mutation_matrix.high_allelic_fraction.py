@@ -3,7 +3,7 @@ import sys
 
 peptide_type = sys.argv[1]
 
-patient_mutations = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/combined_classes/patient_affinities.class_ii.csv',
+patient_mutations = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/patient_affinities.cancer.TCGA.inclusive.mut.csv',
                                index_col=0)
 mutations = list(patient_mutations.columns)
 samples_with_mutations = list(patient_mutations.index)
