@@ -18,8 +18,10 @@ def main(category, population, subset, condition):
         df[patient] = df[patient_dictionary[patient]].apply(PHBR, axis=1)
         patients_used.append(patient)
 
-    df[patients_used].to_csv('/cellar/users/ramarty/Data/hla_ii/presentation/patient_matrices/{0}.{1}.{2}.{3}.csv'.format(category,
+    df[patients_used].to_csv('/cellar/users/ramarty/Data/hla_ii/presentation/patient_matrices/{0}.{1}.{2}.{3}.ClassI.csv'.format(category,
                                                                                                                               population,
+                                                                                                                              subset,
+                                                                                                                              condition))
 
 
 def PHBR(x):
