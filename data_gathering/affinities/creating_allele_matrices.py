@@ -12,7 +12,7 @@ def main(category, condition):
 
     for i, allele in enumerate(alleles):
         BR = []
-        if category == 'mut':
+        if condition == 'mut':
             aff = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/affinities/{0}/{1}.csv'.format(category, allele), sep='\t', skiprows=1)
         else:
             aff = pd.read_csv('/cellar/users/ramarty/Data/hla_ii/presentation/affinities/{0}/{1}.wt.csv'.format(category, allele), sep='\t', skiprows=1)
