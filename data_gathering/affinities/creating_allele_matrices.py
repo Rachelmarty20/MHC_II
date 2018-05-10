@@ -4,6 +4,7 @@ import sys
 
 def main(category, condition):
 
+    print category, condition
     alleles = [x.strip() for x in open('/cellar/users/ramarty/Data/hla_ii/presentation/other/netMHCIIpan_alleles.txt').readlines() if x.strip()[:2] != 'H-']
 
     mutations = [x.strip() for x in open('/cellar/users/ramarty/Data/hla_ii/presentation/residues/{0}.txt'.format(category)).readlines()]
