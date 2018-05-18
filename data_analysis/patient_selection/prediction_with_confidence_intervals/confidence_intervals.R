@@ -71,4 +71,4 @@ results_dfII$predicted_prob<-exp(results_dfII$predicted)
 # labels as factors
 results_dfII$label_fact <- factor(results_dfII$label)
 
-write.table(results_dfII, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions/confidence_intervals/", args[1], "/iteration_", args[2], ".data.txt", sep=''))
+write.table(results_dfII, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_data/predictions/confidence_intervals/", input, "/iteration_", iteration, ".data.txt", sep=''))
