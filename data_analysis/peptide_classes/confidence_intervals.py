@@ -1,6 +1,8 @@
 import pandas as pd
 import cPickle as pickle
 import sys
+import numpy as np
+import math
 
 
 def main(iterations):
@@ -49,7 +51,7 @@ def main(iterations):
             single_trajectory = []
             tmp_boot = tmp.sample(len(tmp), replace = True)
             for x in np.arange(0, 31, 1):
-                single_trajectory.append(mean(tmp_boot < x))
+                single_trajectory.append(np.mean(tmp_boot < x))
             fraction[cat].append(single_trajectory)
 
     # calculate confidence intervals at a cutoff of 6
