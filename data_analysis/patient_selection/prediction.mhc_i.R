@@ -13,7 +13,7 @@ model = as.integer(args[3])
 
 #Format data
 tissue <- read.csv(paste(PATH_TO_DATA, 'patient_tissues.csv', sep=""),header=TRUE)
-mut <- read.csv(paste(PATH_TO_DATA, 'cpatient_mutations.cancer.TCGA.inclusive.mut.csv', sep=""),header=TRUE)
+mut <- read.csv(paste(PATH_TO_DATA, 'patient_mutations.cancer.TCGA.inclusive.mut.csv', sep=""),header=TRUE)
 aff1 <- read.csv(paste(PATH_TO_DATA, 'patient_affinities.cancer.TCGA.conservative.mut.ClassI.csv', sep=""),header=TRUE)
 aff2 <- read.csv(paste(PATH_TO_DATA, 'patient_affinities.cancer.TCGA.conservative.mut.ClassII.csv', sep=""),header=TRUE)
 
