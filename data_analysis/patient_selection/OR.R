@@ -46,7 +46,7 @@ if (model == 0){
         sel= gene %in% names(nmut[nmut>=mutation_threshold])
 
         print('pre model')
-        lme2= glmer(y[sel] ~ log(x[sel]) + (1|pat[sel]), family='binomial')
+        lme2= glmer(y[sel] ~ log(x[sel]) + (1|pat[sel]), familys='binomial')
         print('post model')
         mysummarypan <- vector("list",2)
         mysummarypan[[1]] <- summary(lme2)
@@ -167,8 +167,9 @@ if (model == 1){
         genesel= (gene %in% names(nmut[nmut>=mutation_threshold]))
 
         # train models # 'BRCA','OV','PRAD',
-        tissuetypes <- c('LUAD','HNSC','LGG','THCA','SKCM','LUSC','STAD','BLCA',
-                        'GBM','LIHC','COAD','KIRC','KIRP','PCPG','PAAD','TGCT')
+        tissuetypes <- c('GBM', 'OV', 'LUAD', 'LUSC', 'PRAD', 'BLCA','PAAD', 'LIHC',
+                     'STAD', 'SKCM', 'THCA', 'COAD', 'HNSC', 'BRCA', 'UCEC', 'READ',
+                      'LGG', 'UCS')
         OR <- CI_low <- CI_high <- predicted <- tissues <- vector("list",length(tissuetypes)*2)
         for (i in 1:length(tissuetypes)) {
             cat("TISSUE",tissuetypes[i],"\n")
