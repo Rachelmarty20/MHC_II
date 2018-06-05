@@ -29,3 +29,5 @@ matrix.index = mutations
 matrix = matrix.transpose()
 
 matrix.to_csv('/cellar/users/ramarty/Data/hla_ii/presentation/patient_matrices/cancer.patient_mutation.high_allelic_fraction.csv')
+
+# copied to /cellar/users/ramarty/Data/hla_ii/presentation/clean_matrices/patient_mutations.high_allelic_fraction.TCGA.inclusive.mut.csv
