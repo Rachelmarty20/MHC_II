@@ -48,6 +48,7 @@ write.table(tabgene, file = paste("/cellar/users/ramarty/Data/hla_ii/generated_d
 
 print('Models created.')
 
+
 pdf(paste('/cellar/users/ramarty/Data/hla_ii/generated_figures/', args[1], '/globalassoc_gam_harm.', args[2], '.pdf', sep=''))
 #thre <- c(0,0.5,1,1.5,2,2.5,3,4,5,Inf)
 #xr= cut(x,breaks=thre)
@@ -79,3 +80,4 @@ legend('topright',c('No mutation','Mutation'),lty=1,col=1:2,cex=1.3)
 dev.off()
 
 print('Pan completed created.')
+'''
