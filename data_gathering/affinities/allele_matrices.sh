@@ -8,13 +8,15 @@
 #$ -l h_vmem=2G
 #$ -tc 50
 #$ -l long
-set categories=(germline)
+set categories=(cgc_new)
+set conditions=(mut)
 
 set category=$categories[$SGE_TASK_ID]
+set condition=$conditions[$SGE_TASK_ID]
 
 date
 hostname
 
-python /cellar/users/ramarty/Projects/hla_ii/data_gathering/affinities/creating_allele_matrices.py $category
+python /cellar/users/ramarty/Projects/hla_ii/data_gathering/affinities/creating_allele_matrices.py $category $condition
 
 date
